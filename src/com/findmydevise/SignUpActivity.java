@@ -1,6 +1,7 @@
 package com.findmydevise;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +13,7 @@ public class SignUpActivity extends Activity {
 
 	EditText signup_name, signup_email, signup_mobilenumber, signup_username,
 			signup_password, signup_password_confirmation;
-	Button signUpBtn;
+	Button signUpBtn, signInBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +28,20 @@ public class SignUpActivity extends Activity {
 		signup_password_confirmation = (EditText) findViewById(R.id.signup_password_confirmation);
 
 		signUpBtn = (Button) findViewById(R.id.signupbtn);
+		signInBtn = (Button) findViewById(R.id.signinbtn);
 
 		signUpBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// write code here
+			}
+		});
+
+		signInBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent in = new Intent(SignUpActivity.this, SignInActivity.class);
+				startActivity(in);
 			}
 		});
 	}

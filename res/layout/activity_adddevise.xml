@@ -14,49 +14,31 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dip"
-            android:text="@string/signin"
+            android:text="@string/add_devise"
             android:textSize="25sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/loginusername"
+            android:id="@+id/devise_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/signin_input" />
+            android:hint="@string/devise_name" />
 
         <EditText
-            android:id="@+id/loginpassword"
-            android:layout_marginTop="20sp"
+            android:id="@+id/devise_password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
+            android:layout_marginTop="20sp"
+            android:hint="@string/devise_password"
             android:inputType="textPassword" />
 
-        <TextView
-            android:id="@+id/login_error"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dip"
-            android:textColor="#e30000"
-            android:textStyle="bold" />
-
         <Button
-            android:id="@+id/signinbtn"
+            android:id="@+id/add_devise"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="#ff6347" 
-            android:text="@string/signin"
-            android:textColor="#fff"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/signupbtn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
-            android:background="#3399FF" 
-            android:text="@string/dont_have_account"
+            android:background="#ff6347"
+            android:text="@string/add_devise"
             android:textColor="#fff"
             android:textStyle="bold" />
     </LinearLayout>

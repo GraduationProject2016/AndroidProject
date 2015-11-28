@@ -2,53 +2,40 @@ package com.findmydevise;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class SignInActivity extends Activity {
+public class AddDeviseActivity extends Activity {
 
-	EditText login_input, login_password;
-	Button signInBtn, signUpBtn;
+	EditText devise_name, devise_password;
+	Button addDevise;
+	private String android_id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_signin);
+		setContentView(R.layout.activity_adddevise);
 
-		login_input = (EditText) findViewById(R.id.loginusername);
-		login_password = (EditText) findViewById(R.id.loginpassword);
-		signInBtn = (Button) findViewById(R.id.signinbtn);
-		signUpBtn = (Button) findViewById(R.id.signupbtn);
+		devise_name = (EditText) findViewById(R.id.devise_name);
+		devise_password = (EditText) findViewById(R.id.devise_password);
+		addDevise = (Button) findViewById(R.id.add_devise);
 
-		signUpBtn.setOnClickListener(new View.OnClickListener() {
+		addDevise.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent in = new Intent(SignInActivity.this,
-						SignUpActivity.class);
-				startActivity(in);
-			}
-		});
-
-		signInBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// String input = login_input.getText().toString();
-				// String password = login_password.getText().toString();
-
-				// String serviceUrl =
-				// "http://localhost:8080/fmd/webService/login/username/"
-				// + input + "/" + password;
-				// String str =
-				// WebServiceConnector.getResponeString(serviceUrl);
-				// System.out.println(str);
-
-				// String json = "{'Name':'John', 'status':'success'}";
-				Intent in = new Intent(SignInActivity.this, HomeActivity.class);
-				startActivity(in);
+				android_id = Secure.getString(getApplicationContext()
+						.getContentResolver(), Secure.ANDROID_ID);
+				Toast.makeText(getApplicationContext(), android_id,
+						Toast.LENGTH_LONG).show();
+				addedSuccessfully();
+				navigatetoHomeActivity();
 			}
 		});
 
@@ -82,4 +69,12 @@ public class SignInActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	public void addedSuccessfully() {
+		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE).edit();
+		editor.putString("devise_added", "true");
+		editor.commit();
+	}
+
 }

@@ -10,34 +10,37 @@
     tools:context="com.findmydevise.MainActivity" >
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="10dip" >
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_splash" />
-
-        <Button
-            android:id="@+id/signupbtn"
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="#ff6347"
-            android:text="@string/signup"
-            android:textColor="#fff"
+            android:layout_marginBottom="15dip"
+            android:text="@string/welcome"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/signinbtn"
+            android:id="@+id/add_devise"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="#3399FF"
-            android:text="@string/signin"
+            android:layout_marginTop="40dip"
+            android:background="#ff6347"
+            android:text="@string/add_devise"
             android:textColor="#fff"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/devise_status"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dip"
+            android:textColor="#FF0000"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
