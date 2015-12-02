@@ -47,7 +47,7 @@ public final class R {
         public static final int signupbtn=0x7f080006;
     }
     public static final class layout {
-        public static final int activity_adddevise=0x7f030000;
+        public static final int activity_adddevice=0x7f030000;
         public static final int activity_home=0x7f030001;
         public static final int activity_main=0x7f030002;
         public static final int activity_signin=0x7f030003;

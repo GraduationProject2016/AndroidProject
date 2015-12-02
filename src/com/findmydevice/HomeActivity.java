@@ -1,4 +1,6 @@
-package com.findmydevise;
+package com.findmydevice;
+
+import com.findmydevise.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,7 +25,7 @@ public class HomeActivity extends Activity {
 		deviseStatus = (TextView) findViewById(R.id.devise_status);
 		
 		if (isAddedDevise()) {
-			deviseStatus.setText("This Devise added suucessfully, you can control it remotly now :)");
+			deviseStatus.setText("This Device added suucessfully, you can control it remotely now :)");
 			addDevise.setVisibility(View.GONE);
 		}
 
@@ -31,7 +33,7 @@ public class HomeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent in = new Intent(HomeActivity.this,
-						AddDeviseActivity.class);
+						AddDeviceActivity.class);
 				startActivity(in);
 			}
 		});

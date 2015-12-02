@@ -1,4 +1,6 @@
-package com.findmydevise;
+package com.findmydevice;
+
+import com.findmydevise.R;
 
 import android.app.Activity;
 import android.content.Intent;

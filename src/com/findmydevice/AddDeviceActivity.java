@@ -1,4 +1,6 @@
-package com.findmydevise;
+package com.findmydevice;
+
+import com.findmydevise.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AddDeviseActivity extends Activity {
+public class AddDeviceActivity extends Activity {
 
 	EditText devise_name, devise_password;
 	Button addDevise;
@@ -21,7 +23,7 @@ public class AddDeviseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_adddevise);
+		setContentView(R.layout.activity_adddevice);
 
 		devise_name = (EditText) findViewById(R.id.devise_name);
 		devise_password = (EditText) findViewById(R.id.devise_password);
