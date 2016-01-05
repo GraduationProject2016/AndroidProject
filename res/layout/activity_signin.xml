@@ -19,7 +19,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/loginusername"
+            android:id="@+id/logininput"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/signin_input" />

@@ -12,18 +12,21 @@ import android.widget.TextView;
 
 public class HomeActivity extends Activity {
 
-	Button addDevise;
+	Button addDevise, logoutBtn;
 	TextView deviseStatus;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+
 		addDevise = (Button) findViewById(R.id.add_devise);
+		logoutBtn = (Button) findViewById(R.id.logout);
 		deviseStatus = (TextView) findViewById(R.id.devise_status);
-		
+
 		if (isAddedDevise()) {
-			deviseStatus.setText("This Device added suucessfully, you can control it remotely now :)");
+			deviseStatus
+					.setText("This Device added suucessfully, you can control it remotely now :)");
 			addDevise.setVisibility(View.GONE);
 		}
 
@@ -32,6 +35,18 @@ public class HomeActivity extends Activity {
 			public void onClick(View v) {
 				Intent in = new Intent(HomeActivity.this,
 						AddDeviceActivity.class);
+				startActivity(in);
+			}
+		});
+
+		logoutBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SharedPreferences.Editor editor = getSharedPreferences(
+						"MyPrefsFile", MODE_PRIVATE).edit();
+				editor.putString("logged_in_user", "false");
+				editor.commit();
+				Intent in = new Intent(HomeActivity.this, SignInActivity.class);
 				startActivity(in);
 			}
 		});

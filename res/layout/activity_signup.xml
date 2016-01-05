@@ -77,15 +77,7 @@
             android:textColor="#fff"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/signinbtn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:background="#3399FF"
-            android:text="@string/signin"
-            android:textColor="#fff"
-            android:textStyle="bold" />
+        
     </LinearLayout>
 
 </LinearLayout>
