@@ -58,7 +58,7 @@ public class SignUpActivity extends Activity {
 
 				if (!signup_password.equals(signup_password_confirmation)) {
 					signup_error_text
-							.setText("Please change this email, it is used by another person");
+							.setText("Please check that the two passwords matches each others.");
 					return;
 				}
 
@@ -67,7 +67,7 @@ public class SignUpActivity extends Activity {
 						|| signup_mobilenumber.equals("")
 						|| signup_password.equals("")
 						|| signup_password_confirmation.equals("")) {
-					signup_error_text.setText("Please enter all sign up data");
+					signup_error_text.setText("Please fill sign up data.");
 					return;
 				}
 
@@ -100,11 +100,11 @@ public class SignUpActivity extends Activity {
 							} else if (obj.getString("status").contains(
 									"EmailNotUniqe")) {
 								signup_error_text
-										.setText("Please change this email, it is used by another person");
+										.setText("Please change email, it is used by another person.");
 							} else if (obj.getString("status").contains(
 									"UsernameNotUniqe")) {
 								signup_error_text
-										.setText("Please change this username, it is used by another person");
+										.setText("Please change username, it is used by another person.");
 							}
 						} catch (JSONException e) {
 							Toast.makeText(

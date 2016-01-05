@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -21,6 +22,8 @@ import com.loopj.android.http.RequestParams;
 public class SignInActivity extends Activity {
 
 	EditText login_input, login_password;
+	TextView signin_error_text;
+
 	Button signInBtn, signUpBtn;
 	String userLoginInput = "", userLoginPassword = "";
 
@@ -33,6 +36,7 @@ public class SignInActivity extends Activity {
 		login_password = (EditText) findViewById(R.id.loginpassword);
 		signInBtn = (Button) findViewById(R.id.signinbtn);
 		signUpBtn = (Button) findViewById(R.id.signupbtn);
+		signin_error_text = (TextView) findViewById(R.id.login_error);
 
 		signUpBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -50,9 +54,7 @@ public class SignInActivity extends Activity {
 				userLoginPassword = login_password.getText().toString();
 
 				if (userLoginInput.equals("") || userLoginPassword.equals("")) {
-					Toast.makeText(getApplicationContext(),
-							"Plaese Fill The Login Data", Toast.LENGTH_LONG)
-							.show();
+					signin_error_text.setText("Plaese fill login Data.");
 					return;
 				}
 
@@ -111,10 +113,8 @@ public class SignInActivity extends Activity {
 										Toast.LENGTH_LONG).show();
 								navigatetoHomeActivity();
 							} else if (obj.getString("status").equals("fail")) {
-								Toast.makeText(
-										getApplicationContext(),
-										obj.getString("login fail , error in username or password , try again"),
-										Toast.LENGTH_LONG).show();
+								signin_error_text
+										.setText("login fail , error in username or password.");
 							}
 						} catch (JSONException e) {
 							Toast.makeText(
