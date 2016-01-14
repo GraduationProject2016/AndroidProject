@@ -32,6 +32,14 @@
             android:hint="@string/devise_password"
             android:inputType="textPassword" />
 
+        <TextView
+            android:id="@+id/device_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textColor="#e30000"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/add_devise"
             android:layout_width="fill_parent"

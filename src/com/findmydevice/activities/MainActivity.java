@@ -1,4 +1,9 @@
-package com.findmydevice;
+package com.findmydevice.activities;
+
+import com.findmydevice.R;
+import com.findmydevice.R.id;
+import com.findmydevice.R.layout;
+import com.findmydevice.R.menu;
 
 import android.app.Activity;
 import android.content.Intent;
