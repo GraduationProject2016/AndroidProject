@@ -1,21 +1,16 @@
-package com.findmydevice.activities;
+package activities;
 
-import com.findmydevice.R;
-import com.findmydevice.R.id;
-import com.findmydevice.R.layout;
-import com.findmydevice.R.menu;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class HomeActivity extends Activity {
+import com.findmydevice.R;
+import common.BaseActivity;
+
+public class HomeActivity extends BaseActivity {
 
 	Button addDevise, logoutBtn;
 	TextView deviseStatus;
@@ -57,25 +52,6 @@ public class HomeActivity extends Activity {
 		});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	public void checkFirstRun() {
 		boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
 				.getBoolean("isFirstRun", true);
@@ -83,17 +59,6 @@ public class HomeActivity extends Activity {
 			getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
 					.putBoolean("isFirstRun", false).apply();
 		}
-	}
-
-	public boolean isAddedDevise() {
-		SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
-				MODE_PRIVATE);
-
-		String name = prefs.getString("devise_added", "No name defined");
-		if (name.equals("true")) {
-			return true;
-		}
-		return false;
 	}
 
 }

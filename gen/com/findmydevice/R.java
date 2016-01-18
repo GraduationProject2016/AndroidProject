@@ -16,6 +16,7 @@ public final class R {
          Example customization of dimensions originally defined in res/values/dimens.xml
          (such as screen margins) for screens with more than 820dp of available width. This
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+
     
          */
         public static final int activity_horizontal_margin=0x7f040000;
@@ -26,12 +27,12 @@ public final class R {
         public static final int ic_splash=0x7f020001;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f080004;
+        public static final int ScrollView1=0x7f080000;
         public static final int action_settings=0x7f080014;
-        public static final int add_devise=0x7f080003;
-        public static final int device_error=0x7f080002;
-        public static final int devise_name=0x7f080000;
-        public static final int devise_password=0x7f080001;
+        public static final int add_devise=0x7f080004;
+        public static final int device_error=0x7f080003;
+        public static final int devise_name=0x7f080001;
+        public static final int devise_password=0x7f080002;
         public static final int devise_status=0x7f080005;
         public static final int imageView1=0x7f080007;
         public static final int login_error=0x7f08000c;
@@ -99,6 +100,8 @@ public final class R {
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
+
+
     
  API 14 theme customizations can go here. 
          */
@@ -107,5 +110,6 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
+        public static final int Container=0x7f060002;
     }
 }

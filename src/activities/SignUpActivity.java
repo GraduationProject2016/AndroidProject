@@ -1,27 +1,21 @@
-package com.findmydevice.activities;
+package activities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.findmydevice.R;
-import com.findmydevice.R.id;
-import com.findmydevice.R.layout;
-import com.findmydevice.R.menu;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SignUpActivity extends Activity {
+import com.findmydevice.R;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import common.BaseActivity;
+
+public class SignUpActivity extends BaseActivity {
 
 	EditText signup_name_text, signup_email_text, signup_mobilenumber_text,
 			signup_username_text, signup_password_text,
@@ -144,29 +138,4 @@ public class SignUpActivity extends Activity {
 				});
 	}
 
-	public void navigatetoHomeActivity() {
-		Intent homeIntent = new Intent(getApplicationContext(),
-				HomeActivity.class);
-		homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(homeIntent);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 }

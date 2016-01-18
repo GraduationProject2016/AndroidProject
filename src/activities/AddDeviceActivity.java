@@ -1,29 +1,22 @@
-package com.findmydevice.activities;
+package activities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.findmydevice.R;
-import com.findmydevice.R.id;
-import com.findmydevice.R.layout;
-import com.findmydevice.R.menu;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
-import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings.Secure;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddDeviceActivity extends Activity {
+import com.findmydevice.R;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import common.BaseActivity;
+
+public class AddDeviceActivity extends BaseActivity {
 
 	EditText devise_name, devise_password;
 	TextView device_error;
@@ -57,18 +50,6 @@ public class AddDeviceActivity extends Activity {
 			}
 		});
 
-	}
-
-	public String getMacAddress() {
-		return Secure.getString(getApplicationContext().getContentResolver(),
-				Secure.ANDROID_ID);
-	}
-
-	public Integer getLoggedInUserID() {
-		SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
-				MODE_PRIVATE);
-
-		return prefs.getInt("user_id", 0);
 	}
 
 	public void registerDeviceWebService() {
@@ -123,31 +104,6 @@ public class AddDeviceActivity extends Activity {
 						}
 					}
 				});
-	}
-
-	/**
-	 * Method which navigates from Login Activity to Home Activity
-	 */
-	public void navigatetoHomeActivity() {
-		Intent homeIntent = new Intent(getApplicationContext(),
-				HomeActivity.class);
-		homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(homeIntent);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	public void addedSuccessfully() {
