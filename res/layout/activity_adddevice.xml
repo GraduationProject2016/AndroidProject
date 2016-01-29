@@ -32,6 +32,14 @@
             android:hint="@string/devise_password"
             android:inputType="textPassword" />
 
+        <EditText
+            android:id="@+id/devise_repassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:hint="@string/devise_repassword"
+            android:inputType="textPassword" />
+        
         <TextView
             android:id="@+id/device_error"
             android:layout_width="fill_parent"

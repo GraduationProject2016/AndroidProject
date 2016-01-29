@@ -18,10 +18,11 @@ import common.BaseActivity;
 
 public class AddDeviceActivity extends BaseActivity {
 
-	EditText devise_name, devise_password;
+	EditText devise_name, devise_password, devise_repassword;
 	TextView device_error;
 	Button addDevise;
-	private String devise_name_text, devise_password_text;
+	private String devise_name_text, devise_password_text,
+			devise_repassword_text;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class AddDeviceActivity extends BaseActivity {
 
 		devise_name = (EditText) findViewById(R.id.devise_name);
 		devise_password = (EditText) findViewById(R.id.devise_password);
+		devise_repassword = (EditText) findViewById(R.id.devise_repassword);
 		addDevise = (Button) findViewById(R.id.add_devise);
 		device_error = (TextView) findViewById(R.id.device_error);
 
@@ -38,7 +40,13 @@ public class AddDeviceActivity extends BaseActivity {
 			public void onClick(View v) {
 				devise_name_text = devise_name.getText().toString();
 				devise_password_text = devise_password.getText().toString();
+				devise_repassword_text = devise_repassword.getText().toString();
 
+				if (!devise_password_text.equals(devise_repassword_text)) {
+					device_error
+							.setText("Please check that the two passwords matches each others.");
+					return;
+				}
 				if (devise_name_text.equals("")
 						|| devise_password_text.equals("")) {
 					device_error.setText("Please fill the above data.");
@@ -65,6 +73,7 @@ public class AddDeviceActivity extends BaseActivity {
 					public void onSuccess(String response) {
 						try {
 							JSONObject obj = new JSONObject(response);
+
 							if (obj.getString("status").equals("Success")) {
 								addedSuccessfully();
 								navigatetoHomeActivity();

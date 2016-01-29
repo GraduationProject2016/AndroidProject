@@ -106,13 +106,19 @@ public class SignInActivity extends BaseActivity {
 					public void onSuccess(String response) {
 						try {
 							JSONObject obj = new JSONObject(response);
-							if (obj.getString("status").equals("Success")) {
+							if (obj.getString("status").equals("Success")
+									&& obj.getBoolean("active") == true) {
 								loginSuccessfully(Integer.valueOf(obj
 										.getInt("id")));
 								Toast.makeText(getApplicationContext(),
 										"You are successfully logged in!",
 										Toast.LENGTH_LONG).show();
 								navigatetoHomeActivity();
+							} else if (obj.getString("status")
+									.equals("Success")
+									&& obj.getBoolean("active") == false) {
+								signin_error_text
+										.setText("Please Activate your account, check your mail.");
 							} else if (obj.getString("status").equals("fail")) {
 								signin_error_text
 										.setText("login fail , error in username or password.");

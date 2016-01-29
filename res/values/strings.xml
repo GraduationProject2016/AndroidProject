@@ -18,6 +18,7 @@
     <string name="welcome">Welcome..</string>
     <string name="devise_name">Enter Device Name</string>
     <string name="devise_password">Enter Device Password</string>
+    <string name="devise_repassword">Confirm Device Password</string>
     <string name="add_devise">Add This Device</string>
     <string name="back_to_home">Back To Home</string>
     <string name="logout">Logout</string>
