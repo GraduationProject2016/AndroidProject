@@ -17,10 +17,15 @@ public final class R {
          (such as screen margins) for screens with more than 820dp of available width. This
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
 
+
+
+
     
          */
         public static final int activity_horizontal_margin=0x7f040000;
         public static final int activity_vertical_margin=0x7f040001;
+        public static final int my_view_margin=0x7f040003;
+        public static final int padding_val=0x7f040002;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
