@@ -32,7 +32,7 @@ public class BaseActivity extends Activity {
 		SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
 				MODE_PRIVATE);
 
-		String name = prefs.getString("devise_added", "No name defined");
+		String name = prefs.getString("device_added", "No name defined");
 		if (name.equals("true")) {
 			return true;
 		}
@@ -67,5 +67,20 @@ public class BaseActivity extends Activity {
 				MODE_PRIVATE);
 
 		return prefs.getInt("user_id", 0);
+	}
+
+	public Integer getDeviceID() {
+		SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE);
+
+		return prefs.getInt("device_id", 0);
+	}
+
+	public void removedSuccessfully() {
+		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE).edit();
+		editor.putString("device_added", "false");
+		editor.putInt("device_id", 0);
+		editor.commit();
 	}
 }

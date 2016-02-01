@@ -49,7 +49,7 @@ public class AddDeviceActivity extends BaseActivity {
 					return;
 				}
 				if (devise_name_text.equals("")
-						|| devise_password_text.equals("")) {
+						|| devise_password_text.equals("") || devise_repassword_text.equals("")) {
 					device_error.setText("Please fill the above data.");
 					return;
 				}
@@ -76,7 +76,7 @@ public class AddDeviceActivity extends BaseActivity {
 							JSONObject obj = new JSONObject(response);
 
 							if (obj.getString("status").equals("Success")) {
-								addedSuccessfully();
+								addedSuccessfully(obj.getInt("id"));
 								navigatetoHomeActivity();
 							} else if (obj.getString("status").contains(
 									"MacAddressNotNniqe")) {
@@ -116,10 +116,11 @@ public class AddDeviceActivity extends BaseActivity {
 				});
 	}
 
-	public void addedSuccessfully() {
+	public void addedSuccessfully(int deviceID) {
 		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
 				MODE_PRIVATE).edit();
-		editor.putString("devise_added", "true");
+		editor.putString("device_added", "true");
+		editor.putInt("device_id", deviceID);
 		editor.commit();
 	}
 

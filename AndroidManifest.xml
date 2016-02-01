@@ -27,11 +27,13 @@
         </activity>
         <activity
             android:name="fmd_android_clint.activities.SignUpActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="fmd_android_clint.activities.SignInActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="fmd_android_clint.activities.HomeActivity"
@@ -39,7 +41,8 @@
         </activity>
         <activity
             android:name="fmd_android_clint.activities.AddDeviceActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
     </application>
 
