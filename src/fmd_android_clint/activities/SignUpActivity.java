@@ -15,6 +15,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import fmd_android_clint.common.BaseActivity;
+import fmd_android_clint.common.Constants;
 
 public class SignUpActivity extends BaseActivity {
 
@@ -84,7 +85,7 @@ public class SignUpActivity extends BaseActivity {
 	 */
 	public void signupWithWebService() {
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://192.168.43.162:8080/fmd/webService/user/signup/"
+		client.get(Constants.HOST_NAME + "/fmd/webService/user/signup/"
 				+ signup_name + "/" + signup_username + "/" + signup_email
 				+ "/" + signup_mobilenumber + "/" + signup_password, null,
 				new AsyncHttpResponseHandler() {

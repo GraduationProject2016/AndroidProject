@@ -18,6 +18,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import fmd_android_clint.common.BaseActivity;
+import fmd_android_clint.common.Constants;
 
 public class SignInActivity extends BaseActivity {
 
@@ -99,8 +100,9 @@ public class SignInActivity extends BaseActivity {
 		else
 			login_by = "username";
 
+		
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://192.168.43.162:8080/fmd/webService/user/login/"
+		client.get(Constants.HOST_NAME + "/fmd/webService/user/login/"
 				+ login_by + "/" + userLoginInput + "/" + userLoginPassword,
 				null, new AsyncHttpResponseHandler() {
 					@Override

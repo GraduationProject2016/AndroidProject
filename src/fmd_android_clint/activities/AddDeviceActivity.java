@@ -16,6 +16,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import fmd_android_clint.common.BaseActivity;
+import fmd_android_clint.common.Constants;
 
 public class AddDeviceActivity extends BaseActivity {
 
@@ -49,7 +50,8 @@ public class AddDeviceActivity extends BaseActivity {
 					return;
 				}
 				if (devise_name_text.equals("")
-						|| devise_password_text.equals("") || devise_repassword_text.equals("")) {
+						|| devise_password_text.equals("")
+						|| devise_repassword_text.equals("")) {
 					device_error.setText("Please fill the above data.");
 					return;
 				}
@@ -66,7 +68,7 @@ public class AddDeviceActivity extends BaseActivity {
 		String userID = String.valueOf(getLoggedInUserID());
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://192.168.43.162:8080/fmd/webService/device/register/"
+		client.get(Constants.HOST_NAME + "/fmd/webService/device/register/"
 				+ devise_name_text + "/" + devise_password_text + "/"
 				+ android_id + "/ANDROID/" + userID, null,
 				new AsyncHttpResponseHandler() {
