@@ -102,7 +102,7 @@ public class SignInActivity extends BaseActivity {
 
 		
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get(Constants.HOST_NAME + "/fmd/webService/user/login/"
+		client.get(getHostName() + "/fmd/webService/user/login/"
 				+ login_by + "/" + userLoginInput + "/" + userLoginPassword,
 				null, new AsyncHttpResponseHandler() {
 					@Override

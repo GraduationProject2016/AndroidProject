@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.findmydevice.R;
 
 import fmd_android_clint.activities.HomeActivity;
+import fmd_android_clint.activities.SettingsActivity;
 
 public class BaseActivity extends Activity {
 
@@ -23,7 +24,12 @@ public class BaseActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
-			return true;
+			Intent homeIntent = new Intent(getApplicationContext(),
+					SettingsActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(homeIntent);
+		} else if (id == R.id.action_exit) {
+			System.exit(1);
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -74,6 +80,13 @@ public class BaseActivity extends Activity {
 				MODE_PRIVATE);
 
 		return prefs.getInt("device_id", 0);
+	}
+
+	public String getHostName() {
+		SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE);
+
+		return prefs.getString("host_name", "null");
 	}
 
 	public void removedSuccessfully() {

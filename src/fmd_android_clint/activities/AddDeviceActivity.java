@@ -68,7 +68,7 @@ public class AddDeviceActivity extends BaseActivity {
 		String userID = String.valueOf(getLoggedInUserID());
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get(Constants.HOST_NAME + "/fmd/webService/device/register/"
+		client.get(getHostName() + "/fmd/webService/device/register/"
 				+ devise_name_text + "/" + devise_password_text + "/"
 				+ android_id + "/ANDROID/" + userID, null,
 				new AsyncHttpResponseHandler() {

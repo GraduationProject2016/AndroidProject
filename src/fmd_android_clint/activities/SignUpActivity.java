@@ -85,9 +85,9 @@ public class SignUpActivity extends BaseActivity {
 	 */
 	public void signupWithWebService() {
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get(Constants.HOST_NAME + "/fmd/webService/user/signup/"
-				+ signup_name + "/" + signup_username + "/" + signup_email
-				+ "/" + signup_mobilenumber + "/" + signup_password, null,
+		client.get(getHostName() + "/fmd/webService/user/signup/" + signup_name
+				+ "/" + signup_username + "/" + signup_email + "/"
+				+ signup_mobilenumber + "/" + signup_password, null,
 				new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {

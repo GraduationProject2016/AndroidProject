@@ -3,8 +3,12 @@
 
     <string name="app_name">Find My Device</string>
     <string name="action_settings">Settings</string>
+    <string name="action_exit">Exit</string>
     <string name="signup">Register</string>
     <string name="signin">Sign In</string>
+    <string name="hostname">Host Name</string>
+    <string name="save">Save</string>
+    <string name="hostname_input">Enter Host Name</string>
     <string name="signin_input">Enter Email or Username</string>
     <string name="username">Enter Username</string>
     <string name="name">Enter Name</string>
