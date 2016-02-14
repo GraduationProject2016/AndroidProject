@@ -14,7 +14,7 @@ import fmd_android_clint.common.BaseActivity;
 public class HomeActivity extends BaseActivity {
 
 	Button addDevise, logoutBtn;
-	TextView deviseStatus;
+	TextView deviseStatus, welcome;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,9 @@ public class HomeActivity extends BaseActivity {
 		addDevise = (Button) findViewById(R.id.add_devise);
 		logoutBtn = (Button) findViewById(R.id.logout);
 		deviseStatus = (TextView) findViewById(R.id.devise_status);
+		welcome = (TextView) findViewById(R.id.welcome);
+
+		welcome.setText("Welcome " + getCurrentUserName());
 
 		if (isAddedDevise()) {
 			deviseStatus

@@ -89,6 +89,20 @@ public class BaseActivity extends Activity {
 		return prefs.getString("host_name", "null");
 	}
 
+	public void saveUserName(String name) {
+		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE).edit();
+		editor.putString("user_name", name);
+		editor.commit();
+	}
+
+	public String getCurrentUserName() {
+		SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE);
+
+		return prefs.getString("user_name", "null");
+	}
+
 	public void removedSuccessfully() {
 		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
 				MODE_PRIVATE).edit();

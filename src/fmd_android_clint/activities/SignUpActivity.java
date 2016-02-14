@@ -94,6 +94,8 @@ public class SignUpActivity extends BaseActivity {
 						try {
 							JSONObject obj = new JSONObject(response);
 							if (obj.getString("status").equals("Success")) {
+
+								saveUserName(obj.getString("name"));
 								Toast.makeText(getApplicationContext(),
 										"You are successfully Signed up!",
 										Toast.LENGTH_LONG).show();
@@ -106,6 +108,10 @@ public class SignUpActivity extends BaseActivity {
 									"UsernameNotUniqe")) {
 								signup_error_text
 										.setText("Please change username, it is used by another person.");
+							} else if (obj.getString("status").contains(
+									"mobileNotUniqe")) {
+								signup_error_text
+										.setText("Please change mobile number, it is used by another person.");
 							}
 						} catch (JSONException e) {
 							Toast.makeText(

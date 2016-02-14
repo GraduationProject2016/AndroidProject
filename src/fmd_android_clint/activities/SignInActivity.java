@@ -18,7 +18,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import fmd_android_clint.common.BaseActivity;
-import fmd_android_clint.common.Constants;
 
 public class SignInActivity extends BaseActivity {
 
@@ -100,11 +99,10 @@ public class SignInActivity extends BaseActivity {
 		else
 			login_by = "username";
 
-		
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get(getHostName() + "/fmd/webService/user/login/"
-				+ login_by + "/" + userLoginInput + "/" + userLoginPassword,
-				null, new AsyncHttpResponseHandler() {
+		client.get(getHostName() + "/fmd/webService/user/login/" + login_by
+				+ "/" + userLoginInput + "/" + userLoginPassword, null,
+				new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
 						try {
@@ -113,6 +111,7 @@ public class SignInActivity extends BaseActivity {
 									&& obj.getBoolean("active") == true) {
 								loginSuccessfully(Integer.valueOf(obj
 										.getInt("id")));
+								saveUserName(obj.getString("name"));
 								Toast.makeText(getApplicationContext(),
 										"You are successfully logged in!",
 										Toast.LENGTH_LONG).show();
