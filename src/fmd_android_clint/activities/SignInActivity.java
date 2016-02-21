@@ -50,6 +50,7 @@ public class SignInActivity extends BaseActivity {
 		signInBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
 				userLoginInput = login_input.getText().toString();
 				userLoginPassword = login_password.getText().toString();
 
@@ -100,8 +101,9 @@ public class SignInActivity extends BaseActivity {
 			login_by = "username";
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get(getHostName() + "/fmd/webService/user/login/" + login_by
-				+ "/" + userLoginInput + "/" + userLoginPassword, null,
+		client.get("http://" + getServerIP()
+				+ ":8080/fmd/webService/user/login/" + login_by + "/"
+				+ userLoginInput + "/" + userLoginPassword, null,
 				new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {

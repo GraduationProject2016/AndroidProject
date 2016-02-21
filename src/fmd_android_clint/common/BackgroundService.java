@@ -4,12 +4,13 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.widget.Toast;
+import fmd_android_clint.socket.Connection;
 
 public class BackgroundService extends Service {
 
 	@Override
 	public void onCreate() {
-		Toast.makeText(this, "MyAlarmService.onCreate()", Toast.LENGTH_LONG)
+		Toast.makeText(this, "MyAlarmService.onCreate() ", Toast.LENGTH_LONG)
 				.show();
 	}
 
@@ -21,18 +22,17 @@ public class BackgroundService extends Service {
 	}
 
 	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		Toast.makeText(this, "MyAlarmService.onDestroy()", Toast.LENGTH_LONG)
-				.show();
-	}
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		Toast.makeText(this, "MyAlarmService start", Toast.LENGTH_LONG).show();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Connection con = new Connection(1, 2, "192.168.43.162");
+				con.signIn();
 
-	@Override
-	public void onStart(Intent intent, int startId) {
-		super.onStart(intent, startId);
-		Toast.makeText(this, "MyAlarmService.onStart()", Toast.LENGTH_LONG)
-				.show();
-
+			}
+		}).start();
+		return super.onStartCommand(intent, flags, startId);
 	}
 
 	@Override

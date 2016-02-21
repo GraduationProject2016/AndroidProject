@@ -1,10 +1,13 @@
 package fmd_android_clint.activities;
 
+import java.io.IOException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +19,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import fmd_android_clint.common.BaseActivity;
-import fmd_android_clint.common.Constants;
 
 public class AddDeviceActivity extends BaseActivity {
 
@@ -37,6 +39,10 @@ public class AddDeviceActivity extends BaseActivity {
 		addDevise = (Button) findViewById(R.id.add_devise);
 		device_error = (TextView) findViewById(R.id.device_error);
 
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+				.permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		
 		addDevise.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -58,6 +64,23 @@ public class AddDeviceActivity extends BaseActivity {
 				device_error.setText("");
 
 				registerDeviceWebService();
+
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							doWork();
+						} catch (IOException e) {
+							Toast.makeText(getApplicationContext(),
+									"Please Check Connection!",
+									Toast.LENGTH_LONG).show();
+						} catch (InterruptedException e) {
+							Toast.makeText(getApplicationContext(),
+									"Please Check Connection!",
+									Toast.LENGTH_LONG).show();
+						}
+					}
+				}).start();
 			}
 		});
 
@@ -68,60 +91,60 @@ public class AddDeviceActivity extends BaseActivity {
 		String userID = String.valueOf(getLoggedInUserID());
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get(getHostName() + "/fmd/webService/device/register/"
-				+ devise_name_text + "/" + devise_password_text + "/"
-				+ android_id + "/ANDROID/" + userID, null,
-				new AsyncHttpResponseHandler() {
-					@Override
-					public void onSuccess(String response) {
-						try {
-							JSONObject obj = new JSONObject(response);
+		client.get("http://" + getServerIP()
+				+ ":8080/fmd/webService/device/register/" + devise_name_text
+				+ "/" + devise_password_text + "/" + android_id + "/ANDROID/"
+				+ userID, null, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(String response) {
+				try {
+					JSONObject obj = new JSONObject(response);
 
-							if (obj.getString("status").equals("Success")) {
-								addedSuccessfully(obj.getInt("id"));
-								navigatetoHomeActivity();
-							} else if (obj.getString("status").contains(
-									"MacAddressNotNniqe")) {
-								device_error
-										.setText("You cannot add this device as it already used by anothr person.");
-							}
-						} catch (JSONException e) {
-							Toast.makeText(
-									getApplicationContext(),
-									"Error Occured [Server's JSON response might be invalid]!",
-									Toast.LENGTH_LONG).show();
-							e.printStackTrace();
-
-						}
+					if (obj.getString("status").equals("Success")) {
+						addedSuccessfully(obj.getInt("id"));
+						navigatetoHomeActivity();
+					} else if (obj.getString("status").contains(
+							"MacAddressNotNniqe")) {
+						device_error
+								.setText("You cannot add this device as it already used by anothr person.");
 					}
+				} catch (JSONException e) {
+					Toast.makeText(
+							getApplicationContext(),
+							"Error Occured [Server's JSON response might be invalid]!",
+							Toast.LENGTH_LONG).show();
+					e.printStackTrace();
 
-					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
-						if (statusCode == 404) {
-							Toast.makeText(getApplicationContext(),
-									"Requested resource not found",
-									Toast.LENGTH_LONG).show();
-						} else if (statusCode == 500) {
-							Toast.makeText(getApplicationContext(),
-									"Something went wrong at server",
-									Toast.LENGTH_LONG).show();
-						}
-						// When Http response code other than 404, 500
-						else {
-							Toast.makeText(
-									getApplicationContext(),
-									"[Device might not be connected to Internet or remote server is not up and running]",
-									Toast.LENGTH_LONG).show();
-						}
-					}
-				});
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, Throwable error,
+					String content) {
+				if (statusCode == 404) {
+					Toast.makeText(getApplicationContext(),
+							"Requested resource not found", Toast.LENGTH_LONG)
+							.show();
+				} else if (statusCode == 500) {
+					Toast.makeText(getApplicationContext(),
+							"Something went wrong at server", Toast.LENGTH_LONG)
+							.show();
+				}
+				// When Http response code other than 404, 500
+				else {
+					Toast.makeText(
+							getApplicationContext(),
+							"[Device might not be connected to Internet or remote server is not up and running]",
+							Toast.LENGTH_LONG).show();
+				}
+			}
+		});
 	}
 
 	public void addedSuccessfully(int deviceID) {
 		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
 				MODE_PRIVATE).edit();
-		editor.putString("device_added", "true");
+		editor.putBoolean("device_added", true);
 		editor.putInt("device_id", deviceID);
 		editor.commit();
 	}

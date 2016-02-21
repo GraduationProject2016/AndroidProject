@@ -46,12 +46,14 @@ public class ComputerFilesSystem {
 					fileName = listOfFiles[i].getName();
 					fileSize = listOfFiles[i].length();
 
-					String extension = MimeTypeMap
-							.getFileExtensionFromUrl(listOfFiles[i].getPath());
-					if (extension != null) {
-						fileType = MimeTypeMap.getSingleton()
-								.getMimeTypeFromExtension(extension);
-					}
+					// String extension = MimeTypeMap
+					// .getFileExtensionFromUrl(listOfFiles[i].getPath());
+					// if (extension != null) {
+					// fileType = MimeTypeMap.getSingleton()
+					// .getMimeTypeFromExtension(extension);
+					// }
+					fileType = fileName
+							.substring(fileName.lastIndexOf('.') + 1);
 					files.add(new FMDFile(fileName, fileType, fileSize));
 				} else if (listOfFiles[i].isDirectory()) {
 					fileName = listOfFiles[i].getName();

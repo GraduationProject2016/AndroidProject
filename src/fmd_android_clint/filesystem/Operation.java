@@ -15,17 +15,20 @@ public class Operation {
 	}
 
 	public static boolean removeDirectory(String path) {
-		try {
-			File file = new File(path);
-
-			if (file.delete())
-				return true;
-			else
-				return false;
-
-		} catch (Exception e) {
-			return false;
+		File directory = new File(path);
+		if (directory.exists()) {
+			File[] files = directory.listFiles();
+			if (null != files) {
+				for (int i = 0; i < files.length; i++) {
+					if (files[i].isDirectory()) {
+						removeDirectory(files[i].getAbsolutePath());
+					} else {
+						files[i].delete();
+					}
+				}
+			}
 		}
+		return (directory.delete());
 	}
 
 	public static boolean renameDirectory(String path, String newName) {

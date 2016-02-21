@@ -6,8 +6,11 @@
     <string name="action_exit">Exit</string>
     <string name="signup">Register</string>
     <string name="signin">Sign In</string>
-    <string name="hostname">Host Name</string>
+    <string name="hostname">Server IP</string>
     <string name="save">Save</string>
+    <string name="server_connection">Server Connection</string>
+    <string name="connection_status">Connection Status</string>
+    <string name="connect">Connect To Server</string>
     <string name="hostname_input">Enter Host Name</string>
     <string name="signin_input">Enter Email or Username</string>
     <string name="username">Enter Username</string>

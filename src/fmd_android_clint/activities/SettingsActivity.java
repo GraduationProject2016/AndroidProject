@@ -1,8 +1,9 @@
 package fmd_android_clint.activities;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
+import java.io.IOException;
+
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,9 +17,9 @@ import fmd_android_clint.common.BaseActivity;
 public class SettingsActivity extends BaseActivity {
 
 	EditText hostname_input;
-	TextView error_text;
+	TextView error_text, connection_status;
 
-	Button save;
+	Button save, connectToServer;
 	String hostNameText = "";
 
 	@Override
@@ -28,8 +29,16 @@ public class SettingsActivity extends BaseActivity {
 
 		hostname_input = (EditText) findViewById(R.id.hostname);
 		save = (Button) findViewById(R.id.save);
+		connectToServer = (Button) findViewById(R.id.server);
 		error_text = (TextView) findViewById(R.id.error_msg);
-		hostname_input.setText("http://192.168.43.162:8080");
+		connection_status = (TextView) findViewById(R.id.connection_status);
+
+		hostname_input.setText(getServerIP());
+		connection_status.setText(getConnectionStatus());
+
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+				.permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 
 		save.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -37,23 +46,34 @@ public class SettingsActivity extends BaseActivity {
 				hostNameText = hostname_input.getText().toString();
 
 				if (hostNameText.equals("")) {
+					error_text.setVisibility(View.VISIBLE);
 					error_text.setText("Please fill host Name Field.");
 					return;
 				}
 				error_text.setText("");
+				error_text.setVisibility(View.GONE);
 				saveHostName(hostNameText);
 				Toast.makeText(getApplicationContext(), "Saved Successfully!",
 						Toast.LENGTH_LONG).show();
 			}
 		});
 
-	}
-
-	public void saveHostName(String hostName) {
-		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
-				MODE_PRIVATE).edit();
-		editor.putString("host_name", hostName);
-		editor.commit();
+		connectToServer.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					doWork();
+				} catch (IOException e) {
+					Toast.makeText(getApplicationContext(),
+							"Please Check Connection!", Toast.LENGTH_LONG)
+							.show();
+				} catch (InterruptedException e) {
+					Toast.makeText(getApplicationContext(),
+							"Please Check Connection!", Toast.LENGTH_LONG)
+							.show();
+				}
+			}
+		});
 	}
 
 }

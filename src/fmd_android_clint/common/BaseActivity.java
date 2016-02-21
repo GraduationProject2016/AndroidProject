@@ -1,5 +1,7 @@
 package fmd_android_clint.common;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +13,7 @@ import com.findmydevice.R;
 
 import fmd_android_clint.activities.HomeActivity;
 import fmd_android_clint.activities.SettingsActivity;
+import fmd_android_clint.socket.Connection;
 
 public class BaseActivity extends Activity {
 
@@ -38,11 +41,8 @@ public class BaseActivity extends Activity {
 		SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
 				MODE_PRIVATE);
 
-		String name = prefs.getString("device_added", "No name defined");
-		if (name.equals("true")) {
-			return true;
-		}
-		return false;
+		boolean name = prefs.getBoolean("device_added", false);
+		return name;
 	}
 
 	public boolean isLoggedInUser() {
@@ -82,11 +82,11 @@ public class BaseActivity extends Activity {
 		return prefs.getInt("device_id", 0);
 	}
 
-	public String getHostName() {
+	public String getServerIP() {
 		SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
 				MODE_PRIVATE);
 
-		return prefs.getString("host_name", "null");
+		return prefs.getString("server_ip", "");
 	}
 
 	public void saveUserName(String name) {
@@ -106,8 +106,47 @@ public class BaseActivity extends Activity {
 	public void removedSuccessfully() {
 		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
 				MODE_PRIVATE).edit();
-		editor.putString("device_added", "false");
+		editor.putBoolean("device_added", false);
 		editor.putInt("device_id", 0);
 		editor.commit();
+	}
+
+	public void saveHostName(String server_ip) {
+		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE).edit();
+		editor.putString("server_ip", server_ip);
+		editor.commit();
+	}
+
+	public void saveConnectionStatus(String status) {
+		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE).edit();
+		editor.putString("connection_status", status);
+		editor.commit();
+	}
+
+	public String getConnectionStatus() {
+		SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE);
+
+		return prefs.getString("connection_status", "Status : Not Connected");
+	}
+
+	public void doWork() throws IOException, InterruptedException {
+		boolean flag = true;
+		Connection con = new Connection(getLoggedInUserID(), getDeviceID(),
+				getServerIP());
+
+		while (flag) {
+			if (con.signIn()) {
+				saveConnectionStatus("Status : Connected");
+				flag = false;
+			} else {
+				saveConnectionStatus("Status : Not Connected");
+				flag = con.signIn();
+				Thread.sleep(60000 * 4);
+			}
+
+		}
 	}
 }
