@@ -18,7 +18,12 @@ public class MainActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		if (isLoggedInUser()) {
-			navigatetoHomeActivity();
+			// navigatetoHomeActivity();
+
+			Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+			i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(i);
+			this.finish();
 		}
 
 		setContentView(R.layout.activity_main);

@@ -1,7 +1,5 @@
 package fmd_android_clint.activities;
 
-import java.io.IOException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -65,22 +63,22 @@ public class AddDeviceActivity extends BaseActivity {
 
 				registerDeviceWebService();
 
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							doWork();
-						} catch (IOException e) {
-							Toast.makeText(getApplicationContext(),
-									"Please Check Connection!",
-									Toast.LENGTH_LONG).show();
-						} catch (InterruptedException e) {
-							Toast.makeText(getApplicationContext(),
-									"Please Check Connection!",
-									Toast.LENGTH_LONG).show();
-						}
-					}
-				}).start();
+				// new Thread(new Runnable() {
+				// @Override
+				// public void run() {
+				// try {
+				// doWork();
+				// } catch (IOException e) {
+				// Toast.makeText(getApplicationContext(),
+				// "Please Check Connection!",
+				// Toast.LENGTH_LONG).show();
+				// } catch (InterruptedException e) {
+				// Toast.makeText(getApplicationContext(),
+				// "Please Check Connection!",
+				// Toast.LENGTH_LONG).show();
+				// }
+				// }
+				// }).start();
 			}
 		});
 

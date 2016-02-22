@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.findmydevice.R;
 
 import fmd_android_clint.common.BaseActivity;
+import fmd_android_clint.socket.Connection;
 
 public class SettingsActivity extends BaseActivity {
 
@@ -61,8 +62,9 @@ public class SettingsActivity extends BaseActivity {
 		connectToServer.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
 				try {
-					doWork();
+					connect();
 				} catch (IOException e) {
 					Toast.makeText(getApplicationContext(),
 							"Please Check Connection!", Toast.LENGTH_LONG)
@@ -72,8 +74,30 @@ public class SettingsActivity extends BaseActivity {
 							"Please Check Connection!", Toast.LENGTH_LONG)
 							.show();
 				}
+
 			}
 		});
 	}
 
+	public void connect() throws IOException, InterruptedException {
+
+		boolean flag = true;
+		Connection con = new Connection(getLoggedInUserID(), getDeviceID(),
+				getServerIP());
+
+		while (flag) {
+			if (con.signIn()) {
+				connection_status.setText("Status : Connected");
+				saveConnectionStatus("Status : Connected");
+				flag = false;
+			} else {
+				connection_status.setText("Status : Not Connected");
+				saveConnectionStatus("Status : Not Connected");
+				flag = con.signIn();
+				Thread.sleep(60000 * 4);
+			}
+
+		}
+
+	}
 }
