@@ -81,22 +81,15 @@ public class SettingsActivity extends BaseActivity {
 
 	public void connect() throws IOException, InterruptedException {
 
-		boolean flag = true;
 		Connection con = new Connection(getLoggedInUserID(), getDeviceID(),
 				getServerIP());
 
-		while (flag) {
-			if (con.signIn()) {
-				connection_status.setText("Status : Connected");
-				saveConnectionStatus("Status : Connected");
-				flag = false;
-			} else {
-				connection_status.setText("Status : Not Connected");
-				saveConnectionStatus("Status : Not Connected");
-				flag = con.signIn();
-				Thread.sleep(60000 * 4);
-			}
-
+		if (!con.isConnected()) {
+			connection_status.setText("Status : Not Connected");
+			saveConnectionStatus("Status : Not Connected");
+		} else {
+			connection_status.setText("Status : Connected");
+			saveConnectionStatus("Status : Connected");
 		}
 
 	}

@@ -2,7 +2,9 @@ package fmd_android_clint.common;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 import fmd_android_clint.socket.Connection;
 
@@ -23,16 +25,37 @@ public class BackgroundService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		super.onStartCommand(intent, flags, startId);
+
 		Toast.makeText(this, "MyAlarmService start", Toast.LENGTH_LONG).show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Connection con = new Connection(1, 2, "192.168.43.162");
-				con.signIn();
 
+				SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
+						MODE_PRIVATE);
+				int device_id = prefs.getInt("device_id", 0);
+				int user_id = prefs.getInt("user_id", 0);
+				String ip = prefs.getString("server_ip", "");
+
+				Connection con = new Connection(user_id, device_id, ip);
+
+				while (true) {
+					Log.d("hema", "try to connect ... ");
+					try {
+						if (!con.isConnected()) {
+							saveConnectionStatus("Status : Not Connected");
+							con = new Connection(user_id, device_id, ip);
+						}
+						saveConnectionStatus("Status : Connected");
+						Thread.sleep(3000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}).start();
-		return super.onStartCommand(intent, flags, startId);
+		return START_STICKY;
 	}
 
 	@Override
@@ -42,4 +65,10 @@ public class BackgroundService extends Service {
 		return super.onUnbind(intent);
 	}
 
+	public void saveConnectionStatus(String status) {
+		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE).edit();
+		editor.putString("connection_status", status);
+		editor.commit();
+	}
 }

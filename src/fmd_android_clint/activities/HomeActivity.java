@@ -1,7 +1,5 @@
 package fmd_android_clint.activities;
 
-import java.io.IOException;
-
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,10 +8,10 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.findmydevice.R;
 
+import fmd_android_clint.common.BackgroundService;
 import fmd_android_clint.common.BaseActivity;
 
 public class HomeActivity extends BaseActivity {
@@ -43,24 +41,8 @@ public class HomeActivity extends BaseActivity {
 					.setText("This Device added successfully, you can control it remotely now :)");
 			addDevise.setVisibility(View.GONE);
 
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						doWork();
-					} catch (IOException e) {
-						Toast.makeText(getApplicationContext(),
-								"Please Check Connection!", Toast.LENGTH_LONG)
-								.show();
-					} catch (InterruptedException e) {
-						Toast.makeText(getApplicationContext(),
-								"Please Check Connection!", Toast.LENGTH_LONG)
-								.show();
-					}
-				}
-			}).start();
+			startService(new Intent(this, BackgroundService.class));
 
-			// startService(new Intent(this, BackgroundService.class));
 			// Intent myIntent = new Intent(HomeActivity.this,
 			// BackgroundService.class);
 			// pendingIntent = PendingIntent.getService(HomeActivity.this, 0,

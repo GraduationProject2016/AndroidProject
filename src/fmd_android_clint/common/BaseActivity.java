@@ -138,7 +138,7 @@ public class BaseActivity extends Activity {
 				getServerIP());
 
 		while (flag) {
-			if (con.signIn()) {
+			if (con.isConnected()) {
 				saveConnectionStatus("Status : Connected");
 				flag = false;
 			} else {

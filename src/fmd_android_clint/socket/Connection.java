@@ -20,9 +20,17 @@ public class Connection {
 			client = new SocketClient(userID, deviceID, serverIP);
 			clientThread = new Thread(client);
 			clientThread.start();
+			signIn();
 		} catch (Exception ex) {
-			Log.d("myappppp", Log.getStackTraceString(ex));
+			// Log.d("myappppp", Log.getStackTraceString(ex));
 		}
+	}
+
+	public boolean isConnected() {
+		if (client != null && client.is_connected) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean signIn() {
@@ -34,7 +42,7 @@ public class Connection {
 			msg.setContent("sign_in");
 			client.send(JsonHandler.getMessageDtoJson(msg));
 		} catch (Exception ex) {
-			Log.d("myapp", Log.getStackTraceString(ex));
+			// Log.d("myapp", Log.getStackTraceString(ex));
 			return false;
 		}
 		return true;

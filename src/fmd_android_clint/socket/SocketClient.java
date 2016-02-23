@@ -9,7 +9,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-import android.util.Log;
 import fmd_android_clint.common.CommandConstant;
 import fmd_android_clint.common.Constants;
 import fmd_android_clint.common.JsonHandler;
@@ -31,11 +30,13 @@ public class SocketClient implements Runnable {
 
 	public int userID;
 	public int deviceID;
+	public boolean is_connected;
 
 	public SocketClient(int userID_, int deviceID_, String serverIP) {
 
 		userID = userID_;
 		deviceID = deviceID_;
+		is_connected = false;
 
 		this.serverAddr = serverIP;
 		this.port = 13000;
@@ -43,10 +44,11 @@ public class SocketClient implements Runnable {
 			InetAddress serverAddress = InetAddress.getByName(serverAddr);
 
 			socket = new Socket(serverAddress, port);
+
 		} catch (UnknownHostException e) {
-			Log.d("hema", Log.getStackTraceString(e));
+			// Log.d("hema", Log.getStackTraceString(e));
 		} catch (IOException e) {
-			Log.d("hema", Log.getStackTraceString(e));
+			// Log.d("hema", Log.getStackTraceString(e));
 		}
 
 		try {
@@ -54,7 +56,7 @@ public class SocketClient implements Runnable {
 			Out.flush();
 			In = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
-			Log.d("myapp", Log.getStackTraceString(new Exception()));
+			// Log.d("myapp", Log.getStackTraceString(new Exception()));
 		}
 
 	}
@@ -65,6 +67,7 @@ public class SocketClient implements Runnable {
 		Scanner in = new Scanner(System.in);
 
 		while (keepRunning) {
+			is_connected = true;
 			try {
 				MessageDto msg = JsonHandler.getMessageDtoObject((String) In
 						.readObject());
@@ -119,7 +122,7 @@ public class SocketClient implements Runnable {
 				send(JsonHandler.getMessageDtoJson(result));
 			} catch (Exception ex) {
 				keepRunning = false;
-
+				is_connected = false;
 				System.out.println("Exception SocketClient run()");
 				ex.printStackTrace();
 			}
