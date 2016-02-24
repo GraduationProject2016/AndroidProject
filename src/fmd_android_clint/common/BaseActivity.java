@@ -45,6 +45,14 @@ public class BaseActivity extends Activity {
 		return name;
 	}
 
+	public void loginSuccessfully(Integer user_id) {
+		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
+				MODE_PRIVATE).edit();
+		editor.putString("logged_in_user", "true");
+		editor.putInt("user_id", user_id);
+		editor.commit();
+	}
+
 	public boolean isLoggedInUser() {
 		SharedPreferences prefs = getSharedPreferences("MyPrefsFile",
 				MODE_PRIVATE);

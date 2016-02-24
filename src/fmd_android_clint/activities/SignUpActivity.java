@@ -96,6 +96,7 @@ public class SignUpActivity extends BaseActivity {
 							if (obj.getString("status").equals("Success")) {
 
 								saveUserName(obj.getString("name"));
+								loginSuccessfully(obj.getInt("id"));
 								Toast.makeText(getApplicationContext(),
 										"You are successfully Signed up!",
 										Toast.LENGTH_LONG).show();

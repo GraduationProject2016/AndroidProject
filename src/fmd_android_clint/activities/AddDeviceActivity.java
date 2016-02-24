@@ -3,6 +3,7 @@ package fmd_android_clint.activities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -40,7 +41,7 @@ public class AddDeviceActivity extends BaseActivity {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
-		
+
 		addDevise.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -100,7 +101,15 @@ public class AddDeviceActivity extends BaseActivity {
 
 					if (obj.getString("status").equals("Success")) {
 						addedSuccessfully(obj.getInt("id"));
-						navigatetoHomeActivity();
+
+						Intent i = new Intent(getApplicationContext(),
+								HomeActivity.class);
+						i.setFlags(i.getFlags()
+								| Intent.FLAG_ACTIVITY_NO_HISTORY);
+						startActivity(i);
+						finish();
+						
+						
 					} else if (obj.getString("status").contains(
 							"MacAddressNotNniqe")) {
 						device_error

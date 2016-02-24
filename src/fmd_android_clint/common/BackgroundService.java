@@ -12,8 +12,8 @@ public class BackgroundService extends Service {
 
 	@Override
 	public void onCreate() {
-		Toast.makeText(this, "MyAlarmService.onCreate() ", Toast.LENGTH_LONG)
-				.show();
+		// Toast.makeText(this, "MyAlarmService.onCreate() ", Toast.LENGTH_LONG)
+		// .show();
 	}
 
 	@Override
@@ -27,7 +27,8 @@ public class BackgroundService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		super.onStartCommand(intent, flags, startId);
 
-		Toast.makeText(this, "MyAlarmService start", Toast.LENGTH_LONG).show();
+		// Toast.makeText(this, "MyAlarmService start",
+		// Toast.LENGTH_LONG).show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
