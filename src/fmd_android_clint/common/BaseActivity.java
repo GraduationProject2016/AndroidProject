@@ -103,7 +103,7 @@ public class BaseActivity extends Activity {
 		return prefs.getString("user_name", "null");
 	}
 
-	public void removedSuccessfully() {
+	public void unRegisterDevice() {
 		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
 				MODE_PRIVATE).edit();
 		editor.putBoolean("device_added", false);
