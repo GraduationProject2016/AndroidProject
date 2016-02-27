@@ -5,6 +5,8 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.provider.Settings;
 import android.provider.Settings.Secure;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +45,20 @@ public class BaseActivity extends Activity {
 
 		boolean name = prefs.getBoolean("device_added", false);
 		return name;
+	}
+
+	public void turnGPSOn() {
+		String provider = Settings.Secure.getString(getContentResolver(),
+				Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+		if (!provider.contains("gps")) { // if gps is disabled
+			final Intent poke = new Intent();
+			poke.setClassName("com.android.settings",
+					"com.android.settings.widget.SettingsAppWidgetProvider");
+			poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+			poke.setData(Uri.parse("3"));
+			sendBroadcast(poke);
+		}
 	}
 
 	public void loginSuccessfully(Integer user_id) {

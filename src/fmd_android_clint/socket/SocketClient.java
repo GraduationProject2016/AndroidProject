@@ -118,6 +118,9 @@ public class SocketClient implements Runnable {
 					Thread t = new Thread(new Upload(serverAddr, port,
 							new File(parms[1] + "\\" + parms[0]), m));
 					t.start();
+				} else if (stringCommand.equals(CommandConstant.deviceLocation)) {
+					result.setContent("true");
+					Operation.findDeviceLocation();
 				}
 				send(JsonHandler.getMessageDtoJson(result));
 			} catch (Exception ex) {

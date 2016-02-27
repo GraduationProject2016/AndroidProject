@@ -28,6 +28,18 @@
     <string name="devise_repassword">Confirm Device Password</string>
     <string name="add_devise">Add This Device</string>
     <string name="back_to_home">Back To Home</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Logout</string> 
+    <string name="show_location">Show Device Location</string>
+    <string name="location">Device Location</string>  
+    
+    <string name="GPSAlertDialogTitle">GPS is setting</string>
+    <string name="GPSAlertDialogMessage">GPS is not enabled. Do you want to go to setting menu</string>
+    <string name="cancel">Cancel</string>
+    <string name="latitude">Latitude : </string>
+    <string name="longitude">Longitude : </string>
+    <string name="country">Country : </string>
+    <string name="city">City : </string>
+    <string name="postalCode">Postal Code : </string>
+    <string name="addressLine">Address Line : </string>
 
 </resources>

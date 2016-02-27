@@ -73,6 +73,35 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:layout_marginBottom="15dip"
+            android:layout_marginTop="15dip"
+            android:text="@string/location"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/location"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ff6347"
+            android:text="@string/show_location"
+            android:textColor="#fff"
+            android:textStyle="bold" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dip" />
@@ -95,8 +124,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dip"
-            android:gravity="center"
             android:background="#FC0"
+            android:gravity="center"
             android:textColor="#FF0000"
             android:textSize="20sp"
             android:textStyle="bold" />

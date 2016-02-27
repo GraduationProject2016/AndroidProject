@@ -2,11 +2,14 @@ package fmd_android_clint.filesystem;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import fmd_android_clint.location.LocationUtil;
 
 public class Operation {
 
@@ -102,4 +105,10 @@ public class Operation {
 		return object;
 	}
 
+	public static void findDeviceLocation() throws JSONException, IOException,
+			URISyntaxException {
+		LocationUtil util = new LocationUtil();
+		util.getDeviceLocation(util.getLocationLatitude(),
+				util.getLocationLongtitude());
+	}
 }
