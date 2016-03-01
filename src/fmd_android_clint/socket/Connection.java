@@ -1,6 +1,5 @@
 package fmd_android_clint.socket;
 
-import android.util.Log;
 import fmd_android_clint.common.JsonHandler;
 import fmd_android_clint.socket.dto.MessageDto;
 

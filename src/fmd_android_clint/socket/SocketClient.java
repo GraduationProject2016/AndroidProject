@@ -19,7 +19,7 @@ import fmd_android_clint.socket.dto.MessageDto;
 public class SocketClient implements Runnable {
 
 	public int port;
-	public String serverAddr;
+	public static String serverAddr;
 	public Socket socket;
 
 	public ObjectInputStream In;
@@ -28,9 +28,9 @@ public class SocketClient implements Runnable {
 	public String username;
 	public String password;
 
-	public int userID;
-	public int deviceID;
-	public boolean is_connected;
+	public static int userID;
+	public static int deviceID;
+	public static boolean is_connected;
 
 	public SocketClient(int userID_, int deviceID_, String serverIP) {
 
@@ -38,13 +38,11 @@ public class SocketClient implements Runnable {
 		deviceID = deviceID_;
 		is_connected = false;
 
-		this.serverAddr = serverIP;
+		serverAddr = serverIP;
 		this.port = 13000;
 		try {
 			InetAddress serverAddress = InetAddress.getByName(serverAddr);
-
 			socket = new Socket(serverAddress, port);
-
 		} catch (UnknownHostException e) {
 			// Log.d("hema", Log.getStackTraceString(e));
 		} catch (IOException e) {
@@ -78,11 +76,11 @@ public class SocketClient implements Runnable {
 				result.setUserId(msg.getUserId());
 				String stringCommand = command.getCommand();
 				String[] parms = command.getParms();
-				if (stringCommand.equals(CommandConstant.androidHomeJson)) {
+				if (stringCommand.equals(CommandConstant.computerPartions)) {
 					result.setContent(Operation.getDefaultStorageContentJson()
 							.toString());
 				} else if (stringCommand
-						.equals(CommandConstant.androidPathJson)) {
+						.equals(CommandConstant.computerPathJson)) {
 					result.setContent(Operation.getAndroidPathJson(parms[0])
 							.toString());
 				} else if (stringCommand
@@ -93,7 +91,7 @@ public class SocketClient implements Runnable {
 					result.setContent(Operation.createNewFile(parms[0],
 							parms[1]) ? "true" : "false");
 				} else if (stringCommand
-						.equals(CommandConstant.getAndroidDeviceInfo)) {
+						.equals(CommandConstant.getPCDeviceInfo)) {
 					result.setContent(Operation.getAndroidDeviceInfo()
 							.toString());
 				} else if (stringCommand

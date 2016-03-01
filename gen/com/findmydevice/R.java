@@ -33,10 +33,10 @@ public final class R {
     }
     public static final class id {
         public static final int ScrollView1=0x7f080000;
-        public static final int action_exit=0x7f08002b;
-        public static final int action_settings=0x7f08002a;
+        public static final int action_exit=0x7f08002a;
+        public static final int action_settings=0x7f080029;
         public static final int add_devise=0x7f080005;
-        public static final int connection_status=0x7f08001f;
+        public static final int connection_status=0x7f08001e;
         public static final int device_error=0x7f080004;
         public static final int devise_name=0x7f080001;
         public static final int devise_password=0x7f080002;
@@ -57,24 +57,23 @@ public final class R {
         public static final int labelLatitude=0x7f080009;
         public static final int labelLongitude=0x7f08000b;
         public static final int labelPostalCode=0x7f080011;
-        public static final int location=0x7f08001e;
-        public static final int login_error=0x7f080022;
-        public static final int logininput=0x7f080020;
-        public static final int loginpassword=0x7f080021;
+        public static final int location=0x7f08001d;
+        public static final int login_error=0x7f080021;
+        public static final int logininput=0x7f08001f;
+        public static final int loginpassword=0x7f080020;
         public static final int logout=0x7f080008;
         public static final int save=0x7f08001a;
         public static final int server=0x7f08001c;
         public static final int signinbtn=0x7f080017;
-        public static final int signup_email=0x7f080025;
-        public static final int signup_error=0x7f080029;
-        public static final int signup_mobilenumber=0x7f080026;
-        public static final int signup_name=0x7f080023;
-        public static final int signup_password=0x7f080027;
-        public static final int signup_password_confirmation=0x7f080028;
-        public static final int signup_username=0x7f080024;
+        public static final int signup_email=0x7f080024;
+        public static final int signup_error=0x7f080028;
+        public static final int signup_mobilenumber=0x7f080025;
+        public static final int signup_name=0x7f080022;
+        public static final int signup_password=0x7f080026;
+        public static final int signup_password_confirmation=0x7f080027;
+        public static final int signup_username=0x7f080023;
         public static final int signupbtn=0x7f080016;
         public static final int textView1=0x7f08001b;
-        public static final int textView3=0x7f08001d;
         public static final int welcome=0x7f080006;
     }
     public static final class layout {

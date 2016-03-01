@@ -18,20 +18,18 @@ public class Operation {
 	}
 
 	public static boolean removeDirectory(String path) {
-		File directory = new File(path);
-		if (directory.exists()) {
-			File[] files = directory.listFiles();
-			if (null != files) {
-				for (int i = 0; i < files.length; i++) {
-					if (files[i].isDirectory()) {
-						removeDirectory(files[i].getAbsolutePath());
-					} else {
-						files[i].delete();
-					}
+		File dir = new File(path);
+		if (dir.isDirectory()) {
+			String[] children = dir.list();
+			for (int i = 0; i < children.length; i++) {
+				boolean success = removeDirectory(new File(dir, children[i])
+						.getAbsolutePath());
+				if (!success) {
+					return false;
 				}
 			}
 		}
-		return (directory.delete());
+		return dir.delete();
 	}
 
 	public static boolean renameDirectory(String path, String newName) {
@@ -107,8 +105,9 @@ public class Operation {
 
 	public static void findDeviceLocation() throws JSONException, IOException,
 			URISyntaxException {
+
 		LocationUtil util = new LocationUtil();
-		util.getDeviceLocation(util.getLocationLatitude(),
-				util.getLocationLongtitude());
+		util.getLocation();
+		util.getDeviceLocation();
 	}
 }

@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ public class SignInActivity extends BaseActivity {
 
 	Button signInBtn, signUpBtn;
 	String userLoginInput = "", userLoginPassword = "";
+	public static Location loc;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,9 @@ public class SignInActivity extends BaseActivity {
 		signInBtn = (Button) findViewById(R.id.signinbtn);
 		signUpBtn = (Button) findViewById(R.id.signupbtn);
 		signin_error_text = (TextView) findViewById(R.id.login_error);
+
+		// signin_error_text.setVisibility(View.VISIBLE);
+		// signin_error_text.setText(SocketClient.userID);
 
 		signUpBtn.setOnClickListener(new View.OnClickListener() {
 			@Override

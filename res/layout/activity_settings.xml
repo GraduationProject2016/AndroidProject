@@ -73,24 +73,14 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dip" />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:background="#c0c0c0" />
-
-        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-             android:layout_marginBottom="15dip"
+            android:layout_marginBottom="15dip"
             android:layout_marginTop="15dip"
             android:text="@string/location"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/location"
@@ -99,7 +89,8 @@
             android:background="#ff6347"
             android:text="@string/show_location"
             android:textColor="#fff"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"

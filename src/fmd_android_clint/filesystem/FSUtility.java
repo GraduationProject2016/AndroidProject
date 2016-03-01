@@ -22,7 +22,9 @@ public class FSUtility {
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (!listOfFiles[i].isHidden()
 					&& !listOfFiles[i].getName().contains("UsbDrive")
-					&& !listOfFiles[i].getName().contains("emulated")) {
+					&& !listOfFiles[i].getName().contains("emulated")
+					&& listOfFiles[i].getTotalSpace() != 0) {
+
 				name = listOfFiles[i].getName();
 				path = listOfFiles[i].getAbsolutePath();
 				totalSpace = listOfFiles[i].getTotalSpace();

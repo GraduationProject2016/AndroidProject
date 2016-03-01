@@ -16,6 +16,7 @@ import com.findmydevice.R;
 import fmd_android_clint.activities.HomeActivity;
 import fmd_android_clint.activities.SettingsActivity;
 import fmd_android_clint.socket.Connection;
+import fmd_android_clint.socket.SocketClient;
 
 public class BaseActivity extends Activity {
 
@@ -136,6 +137,7 @@ public class BaseActivity extends Activity {
 	}
 
 	public void saveHostName(String server_ip) {
+		SocketClient.serverAddr = server_ip;
 		SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile",
 				MODE_PRIVATE).edit();
 		editor.putString("server_ip", server_ip);
