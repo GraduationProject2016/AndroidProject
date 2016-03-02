@@ -4,10 +4,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -51,8 +53,15 @@ public class HomeActivity extends BaseActivity {
 					.setText("This Device added successfully, you can control it remotely now :)");
 			addDevise.setVisibility(View.GONE);
 
+//			TelephonyManager telemamanger = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+//		    String number = telemamanger.getSimSerialNumber(); 
+//			Toast.makeText(getApplicationContext(), number, Toast.LENGTH_LONG);
+//			deviseStatus.setText(number);
+			
 			startService(new Intent(this, BackgroundService.class));
 		}
+
+		
 
 		addDevise.setOnClickListener(new View.OnClickListener() {
 			@Override

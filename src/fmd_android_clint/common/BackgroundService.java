@@ -49,7 +49,7 @@ public class BackgroundService extends Service {
 							con = new Connection(user_id, device_id, ip);
 						}
 						saveConnectionStatus("Status : Connected");
-						Thread.sleep(3000);
+						Thread.sleep(30000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

@@ -2,7 +2,10 @@ package fmd_android_clint.location;
 
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -27,23 +30,26 @@ public class LocationUtil {
 	}
 
 	public String getLocation() {
-		LocationResult locationResult = new LocationResult() {
-			@Override
-			public String gotLocation(final Location location) {
-				loc = location;
-				fieldLatitude = String.valueOf(loc.getLatitude());
-				fieldLongitude = String.valueOf(loc.getLongitude());
-				Log.d("test", fieldLatitude + " :: " + fieldLongitude);
-				return fieldLatitude + "::" + fieldLongitude;
+
+		Handler h = new Handler(Looper.getMainLooper());
+		h.post(new Runnable() {
+			public void run() {
+				LocationResult locationResult = new LocationResult() {
+					@Override
+					public String gotLocation(final Location location) {
+						loc = location;
+						fieldLatitude = String.valueOf(loc.getLatitude());
+						fieldLongitude = String.valueOf(loc.getLongitude());
+						Log.d("test", fieldLatitude + " :: " + fieldLongitude);
+						return fieldLatitude + "::" + fieldLongitude;
+					}
+				};
+				MyLocation myLocation = new MyLocation();
+				myLocation.getLocation(MyApplication.getContext(),
+						locationResult);
 			}
-		};
-		MyLocation myLocation = new MyLocation();
-		myLocation.getLocation(MyApplication.getContext(), locationResult);
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		});
+
 		return fieldLatitude + "::" + fieldLongitude;
 	}
 
@@ -56,38 +62,46 @@ public class LocationUtil {
 	}
 
 	public void getDeviceLocation() {
-		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://" + ServerIP + ":8080/fmd/webService/location/"
-				+ deviceID + "/" + fieldLatitude + "/" + fieldLongitude, null,
-				new AsyncHttpResponseHandler() {
-					@Override
-					public void onSuccess(String response) {
-						// Toast.makeText(getApplicationContext(),
-						// "Requested resource not found",
-						// Toast.LENGTH_LONG).show();
-					}
+		Log.d("><><><<", "http://" + ServerIP
+				+ ":8080/fmd/webService/location/" + deviceID + "/"
+				+ fieldLatitude + "/" + fieldLongitude);
 
-					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
-						if (statusCode == 404) {
+		if (fieldLatitude != null && fieldLongitude != null) {
+
+			AsyncHttpClient client = new AsyncHttpClient();
+			client.get("http://" + ServerIP + ":8080/fmd/webService/location/"
+					+ deviceID + "/" + fieldLatitude + "/" + fieldLongitude,
+					null, new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(String response) {
 							// Toast.makeText(getApplicationContext(),
 							// "Requested resource not found",
 							// Toast.LENGTH_LONG).show();
-						} else if (statusCode == 500) {
-							// Toast.makeText(getApplicationContext(),
-							// "Something went wrong at server",
-							// Toast.LENGTH_LONG).show();
 						}
-						// When Http response code other than 404, 500
-						else {
-							// Toast.makeText(
-							// getApplicationContext(),
-							// "[Device might not be connected to Internet or remote server is not up and running]",
-							// Toast.LENGTH_LONG).show();
+
+						@Override
+						public void onFailure(int statusCode, Throwable error,
+								String content) {
+							if (statusCode == 404) {
+								// Toast.makeText(getApplicationContext(),
+								// "Requested resource not found",
+								// Toast.LENGTH_LONG).show();
+							} else if (statusCode == 500) {
+								// Toast.makeText(getApplicationContext(),
+								// "Something went wrong at server",
+								// Toast.LENGTH_LONG).show();
+							}
+							// When Http response code other than 404, 500
+							else {
+								// Toast.makeText(
+								// getApplicationContext(),
+								// "[Device might not be connected to Internet or remote server is not up and running]",
+								// Toast.LENGTH_LONG).show();
+							}
 						}
-					}
-				});
+					});
+
+		}
 	}
 
 }

@@ -108,6 +108,11 @@ public class Operation {
 
 		LocationUtil util = new LocationUtil();
 		util.getLocation();
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		util.getDeviceLocation();
 	}
 }
