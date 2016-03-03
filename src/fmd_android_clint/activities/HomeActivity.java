@@ -4,12 +4,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +19,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import fmd_android_clint.common.BackgroundService;
 import fmd_android_clint.common.BaseActivity;
+import fmd_android_clint.location.LocationUtil;
 
 public class HomeActivity extends BaseActivity {
 
@@ -61,7 +60,8 @@ public class HomeActivity extends BaseActivity {
 			startService(new Intent(this, BackgroundService.class));
 		}
 
-		
+		LocationUtil util = new LocationUtil();
+		util.getLocation();
 
 		addDevise.setOnClickListener(new View.OnClickListener() {
 			@Override
