@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import android.util.Log;
 import fmd_android_clint.common.CommandConstant;
 import fmd_android_clint.common.Constants;
 import fmd_android_clint.common.JsonHandler;
@@ -24,9 +25,7 @@ public class SocketClient implements Runnable {
 
 	public ObjectInputStream In;
 	public ObjectOutputStream Out;
-
-	public String username;
-	public String password;
+ 
 
 	public static int userID;
 	public static int deviceID;
@@ -61,8 +60,7 @@ public class SocketClient implements Runnable {
 
 	@Override
 	public void run() {
-		boolean keepRunning = true;
-		Scanner in = new Scanner(System.in);
+		boolean keepRunning = true; 
 
 		while (keepRunning) {
 			is_connected = true;
@@ -113,8 +111,9 @@ public class SocketClient implements Runnable {
 					m.setUserId(userID);
 					m.setDeviceId(deviceID);
 
+					//Log.d("here", new File(parms[1] + "/" + parms[0]).toString());
 					Thread t = new Thread(new Upload(serverAddr, port,
-							new File(parms[1] + "\\" + parms[0]), m));
+							new File(parms[1] + "/" + parms[0]), m));
 					t.start();
 				} else if (stringCommand.equals(CommandConstant.deviceLocation)) {
 					result.setContent("true");

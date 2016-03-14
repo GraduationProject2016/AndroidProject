@@ -42,7 +42,7 @@ public class BackgroundService extends Service {
 				Connection con = new Connection(user_id, device_id, ip);
 
 				while (true) {
-					Log.d("hema", "try to connect ... ");
+					//Log.d("hema", "try to connect ... ");
 					try {
 						if (!con.isConnected()) {
 							saveConnectionStatus("Status : Not Connected");

@@ -7,6 +7,8 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import android.util.Log;
+
 import fmd_android_clint.common.JsonHandler;
 import fmd_android_clint.socket.dto.MessageDto;
 
@@ -35,6 +37,7 @@ public class Upload implements Runnable {
 
 	@Override
 	public void run() {
+		int p = 0;
 		try {
 			ObjectOutputStream streamOut = null;
 			streamOut = new ObjectOutputStream(socket.getOutputStream());
@@ -43,13 +46,17 @@ public class Upload implements Runnable {
 			streamOut.flush();
 			Thread.sleep(1000);
 			byte[] buffer = new byte[1024];
-			int count;
+			int count ;
 
 			while ((count = In.read(buffer)) >= 0) {
 				Out.write(buffer, 0, count);
+				p++;
+
+				Thread.sleep(200);
+				// Log.d("f2sh", count+"");
 			}
 			Out.flush();
-
+			
 			if (streamOut != null)
 				streamOut.close();
 
@@ -65,7 +72,9 @@ public class Upload implements Runnable {
 		} catch (Exception ex) {
 			System.out.println("Exception [Upload : run()]");
 			ex.printStackTrace();
+			Log.d("f2sh", ex.toString());
 		}
+		Log.d("ppppppppppp", p + "");
 	}
 
 }
