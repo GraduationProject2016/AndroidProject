@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
-import android.util.Log;
 import android.widget.Toast;
 import fmd_android_clint.socket.Connection;
 
@@ -27,8 +26,6 @@ public class BackgroundService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		super.onStartCommand(intent, flags, startId);
 
-		// Toast.makeText(this, "MyAlarmService start",
-		// Toast.LENGTH_LONG).show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -42,7 +39,7 @@ public class BackgroundService extends Service {
 				Connection con = new Connection(user_id, device_id, ip);
 
 				while (true) {
-					//Log.d("hema", "try to connect ... ");
+					// Log.d("hema", "try to connect ... ");
 					try {
 						if (!con.isConnected()) {
 							saveConnectionStatus("Status : Not Connected");

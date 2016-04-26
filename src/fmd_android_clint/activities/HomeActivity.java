@@ -3,7 +3,6 @@ package fmd_android_clint.activities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,9 +22,8 @@ import fmd_android_clint.location.LocationUtil;
 
 public class HomeActivity extends BaseActivity {
 
-	Button addDevise, logoutBtn;
-	TextView deviseStatus, welcome;
-	private PendingIntent pendingIntent;
+	Button addDevise, logoutBtn, showLocations;
+	TextView deviseStatus, welcome; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +36,8 @@ public class HomeActivity extends BaseActivity {
 
 		addDevise = (Button) findViewById(R.id.add_devise);
 		logoutBtn = (Button) findViewById(R.id.logout);
+		showLocations = (Button) findViewById(R.id.show_locations);
+
 		deviseStatus = (TextView) findViewById(R.id.devise_status);
 		welcome = (TextView) findViewById(R.id.welcome);
 
@@ -48,15 +48,11 @@ public class HomeActivity extends BaseActivity {
 		StrictMode.setThreadPolicy(policy);
 
 		if (isAddedDevise()) {
+			deviseStatus.setVisibility(View.VISIBLE);
 			deviseStatus
-					.setText("This Device added successfully, you can control it remotely now :)");
+					.setText("This Device was registered successfully, you can access it remotely now...");
 			addDevise.setVisibility(View.GONE);
 
-//			TelephonyManager telemamanger = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-//		    String number = telemamanger.getSimSerialNumber(); 
-//			Toast.makeText(getApplicationContext(), number, Toast.LENGTH_LONG);
-//			deviseStatus.setText(number);
-			
 			startService(new Intent(this, BackgroundService.class));
 		}
 
@@ -70,7 +66,14 @@ public class HomeActivity extends BaseActivity {
 						AddDeviceActivity.class);
 				i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
 				startActivity(i);
-				finish();
+			}
+		});
+
+		showLocations.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(HomeActivity.this, DevicesActivity.class);
+				startActivity(i);
 			}
 		});
 

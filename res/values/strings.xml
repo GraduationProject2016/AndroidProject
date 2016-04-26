@@ -30,7 +30,9 @@
     <string name="back_to_home">Back To Home</string>
     <string name="logout">Logout</string> 
     <string name="show_location">Show Device Location</string>
-    <string name="location">Device Location</string>  
+    <string name="location">Your Devices</string>
+    <string name="location_loc">Device Loc History</string>  
+    <string name="showlocation"> View Your Devices Locations</string>  
     
     <string name="GPSAlertDialogTitle">GPS is setting</string>
     <string name="GPSAlertDialogMessage">GPS is not enabled. Do you want to go to setting menu</string>

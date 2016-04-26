@@ -16,6 +16,7 @@
             android:layout_marginBottom="15dip"
             android:text="@string/add_devise"
             android:textSize="25sp"
+            android:gravity="center"
             android:textStyle="bold" />
 
         <EditText
@@ -53,9 +54,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="#ff6347"
-            android:text="@string/add_devise"
-            android:textColor="#fff"
+            android:background="@drawable/button_theme"
+            android:textColor="@color/white"
+            android:text="@string/add_devise" 
             android:textStyle="bold" />
     </LinearLayout>
 

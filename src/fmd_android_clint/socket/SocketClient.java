@@ -7,9 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
-import android.util.Log;
 import fmd_android_clint.common.CommandConstant;
 import fmd_android_clint.common.Constants;
 import fmd_android_clint.common.JsonHandler;

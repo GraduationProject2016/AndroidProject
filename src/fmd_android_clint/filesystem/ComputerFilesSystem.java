@@ -9,8 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.webkit.MimeTypeMap;
-
 public class ComputerFilesSystem {
 
 	public static String path;
