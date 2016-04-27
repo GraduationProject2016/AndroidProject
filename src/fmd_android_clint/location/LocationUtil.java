@@ -36,6 +36,9 @@ public class LocationUtil {
 				LocationResult locationResult = new LocationResult() {
 					@Override
 					public String gotLocation(final Location location) {
+						if (location == null)
+							return "30.030474 :: 31.209637";
+
 						loc = location;
 						fieldLatitude = String.valueOf(loc.getLatitude());
 						fieldLongitude = String.valueOf(loc.getLongitude());
@@ -61,9 +64,10 @@ public class LocationUtil {
 	}
 
 	public void getDeviceLocation() {
-		Log.d("><><><<", "http://" + ServerIP
-				+ ":8080/fmd/webService/location/" + deviceID + "/"
-				+ fieldLatitude + "/" + fieldLongitude);
+		if (fieldLatitude == null) {
+			fieldLatitude = "30.030474";
+			fieldLongitude = "31.209637";
+		}
 
 		if (fieldLatitude != null && fieldLongitude != null) {
 

@@ -17,12 +17,24 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
             android:layout_marginBottom="20dip"
+            android:layout_marginTop="15dip"
             android:gravity="center"
             android:text="@string/location"
             android:textSize="25sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/no"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip"
+            android:layout_marginTop="55dip"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="#f0f"
+            android:text="@string/no_devcises"
+            android:textSize="20sp"  />
     </LinearLayout>
 
 </ScrollView>

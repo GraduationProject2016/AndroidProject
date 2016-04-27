@@ -85,7 +85,7 @@ public class SettingsActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent i = new Intent(SettingsActivity.this,
 						LocationActivity.class);
-				i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+				//i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
 				startActivity(i);
 				finish();
 			}
