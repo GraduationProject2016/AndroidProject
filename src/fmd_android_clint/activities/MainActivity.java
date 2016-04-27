@@ -21,7 +21,6 @@ public class MainActivity extends BaseActivity {
 			// navigatetoHomeActivity();
 
 			Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-			i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(i);
 			this.finish();
 		}

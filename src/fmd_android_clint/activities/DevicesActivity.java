@@ -1,8 +1,7 @@
 package fmd_android_clint.activities;
 
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.IOException;
+import java.util.List;
 
 import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.findmydevice.R;
@@ -19,90 +19,84 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import fmd_android_clint.common.BaseActivity;
+import fmd_android_clint.common.FromJasonToArrayList;
+import fmd_android_clint.socket.entity.Device;
 
 public class DevicesActivity extends BaseActivity {
 
+	List<Device> devices = null;
+	TextView no;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
+		String response = getIntent().getStringExtra("response");
+		try {
+			devices = FromJasonToArrayList.jsonToList(response, Device.class);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_devices);
 
-		LinearLayout layout = (LinearLayout) findViewById(R.id.linear_layout_tags);
-		layout.setOrientation(LinearLayout.VERTICAL);
+		no = (TextView) findViewById(R.id.no);
 
 		OnClickListener onClickListener = new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(DevicesActivity.this,
-						DeviceLocationsActivity.class);
-				i.putExtra("device_id", v.getTag().toString());
-				startActivity(i);
-
-				// Toast.makeText(getApplicationContext(),
-				// v.getTag().toString(),
-				// Toast.LENGTH_LONG).show();
+				GetAllMyDeviceLocationsWebService(v.getTag().toString());
 			}
 		};
 
-		for (int i = 0; i < 3; i++) {
+		if (devices != null && devices.size() != 0) {
 
-			Button btnTag = new Button(this);
-			btnTag.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-					LayoutParams.WRAP_CONTENT));
-			btnTag.setBackground(getResources().getDrawable(
-					R.drawable.button_theme));
-			btnTag.setTextColor(Color.WHITE);
-			btnTag.setPadding(0, 22, 0, 22);
-			btnTag.setBottom(10);
-			btnTag.setOnClickListener(onClickListener);
-			btnTag.setTextSize(22);
-			btnTag.setText("Button " + i); // name
-			btnTag.setId(i);
-			btnTag.setTag(i);
-			layout.addView(btnTag);
+			LinearLayout layout = (LinearLayout) findViewById(R.id.linear_layout_tags);
+			layout.setOrientation(LinearLayout.VERTICAL);
+
+			for (int i = 0; i < devices.size(); i++) {
+
+				Device device = devices.get(i);
+
+				Button btnTag = new Button(this);
+				btnTag.setLayoutParams(new LayoutParams(
+						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+				btnTag.setBackground(getResources().getDrawable(
+						R.drawable.button_theme));
+				btnTag.setTextColor(Color.WHITE);
+				btnTag.setPadding(0, 22, 0, 22);
+				btnTag.setBottom(10);
+				btnTag.setOnClickListener(onClickListener);
+				btnTag.setTextSize(22);
+				if (device.getId().equals(getDeviceID())) {
+					btnTag.setText("Current Mobile");
+					btnTag.setTextColor(Color.BLACK);
+				} else {
+					btnTag.setText((!device.getType() ? "ANDROID : " : "PC : ")
+							+ device.getName());
+				}
+				btnTag.setId(device.getId());
+				btnTag.setTag(device.getId());
+				layout.addView(btnTag);
+			}
+		} else {
+			no.setVisibility(View.VISIBLE);
 		}
 
 	}
 
-	/**
-	 * Method that performs RESTful webservice invocations
-	 * 
-	 * @param params
-	 */
-	public void GetAllMyDevicesWebService(boolean is_email) {
-		String login_by = "";
-		if (is_email)
-			login_by = "email";
-		else
-			login_by = "username";
+	public void GetAllMyDeviceLocationsWebService(String device_id) {
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://" + getServerIP()
-				+ ":8080/fmd/webService/user/login/" + login_by, null,
+				+ ":8080/fmd/webService/DeviceLocations/" + device_id, null,
 				new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
-						try {
-							JSONObject obj = new JSONObject(response);
-							if (obj.getString("status").equals("Success")
-									&& obj.getBoolean("active") == true) {
-								loginSuccessfully(Integer.valueOf(obj
-										.getInt("id")));
-								saveUserName(obj.getString("name"));
-								Toast.makeText(getApplicationContext(),
-										"You are successfully logged in!",
-										Toast.LENGTH_LONG).show();
-								navigatetoHomeActivity();
-							}
-						} catch (JSONException e) {
-							Toast.makeText(
-									getApplicationContext(),
-									"Error Occured [Server's JSON response might be invalid]!",
-									Toast.LENGTH_LONG).show();
-							e.printStackTrace();
-
-						}
+						Intent i = new Intent(DevicesActivity.this,
+								DeviceLocationsActivity.class);
+						i.putExtra("response", response);
+						startActivity(i);
 					}
 
 					@Override
@@ -127,5 +121,4 @@ public class DevicesActivity extends BaseActivity {
 					}
 				});
 	}
-
 }

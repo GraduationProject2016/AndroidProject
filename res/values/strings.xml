@@ -31,6 +31,8 @@
     <string name="logout">Logout</string> 
     <string name="show_location">Show Device Location</string>
     <string name="location">Your Devices</string>
+    <string name="no_devcises">No Devices Found</string>
+    <string name="no_locations">No Locations Found</string>
     <string name="location_loc">Device Loc History</string>  
     <string name="showlocation"> View Your Devices Locations</string>  
     
