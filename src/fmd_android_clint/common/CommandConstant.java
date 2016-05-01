@@ -25,4 +25,7 @@ public class CommandConstant {
 	public static final String filetransfer = "filetransfer";
 
 	public static final String deviceLocation = "deviceLocation";
+	
+	public static final String recordVoice = "recordVoice";
+
 }
