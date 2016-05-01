@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import android.media.MediaRecorder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -115,4 +117,19 @@ public class Operation {
 		}
 		util.getDeviceLocation();
 	}
+	
+	public static boolean recordVoice(int intervalInMileSecond) throws  Exception {
+        	MediaRecorder myAudioRecorder = new MediaRecorder();
+        	String outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";;
+        	myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+		myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        	myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        	myAudioRecorder.setOutputFile(outputFile);
+        	myAudioRecorder.prepare();
+        	myAudioRecorder.start();
+        	Thread.sleep(intervalInMileSecond);
+        	myAudioRecorder.stop();
+        	myAudioRecorder.release();
+        return true;
+    }
 }
