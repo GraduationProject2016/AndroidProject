@@ -29,6 +29,12 @@ public class Device implements Serializable {
 
 	private String status;
 
+	private Integer responceTime;
+
+	private Integer VideoRecordTime;
+
+	private Integer audioRecordTime;
+
 	public Device() {
 
 	}
@@ -125,6 +131,30 @@ public class Device implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Integer getResponceTime() {
+		return responceTime;
+	}
+
+	public void setResponceTime(Integer responceTime) {
+		this.responceTime = responceTime;
+	}
+
+	public Integer getVideoRecordTime() {
+		return VideoRecordTime;
+	}
+
+	public void setVideoRecordTime(Integer videoRecordTime) {
+		VideoRecordTime = videoRecordTime;
+	}
+
+	public Integer getAudioRecordTime() {
+		return audioRecordTime;
+	}
+
+	public void setAudioRecordTime(Integer audioRecordTime) {
+		this.audioRecordTime = audioRecordTime;
 	}
 
 	@Override
