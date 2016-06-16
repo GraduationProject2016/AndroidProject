@@ -29,7 +29,8 @@ public class SocketClient implements Runnable {
 	public static int deviceID;
 	public static boolean is_connected;
 
-	public SocketClient(int userID_, int deviceID_, String serverIP) {
+	public SocketClient(int userID_, int deviceID_, String serverIP)
+			throws UnknownHostException {
 
 		userID = userID_;
 		deviceID = deviceID_;
@@ -40,8 +41,6 @@ public class SocketClient implements Runnable {
 		try {
 			InetAddress serverAddress = InetAddress.getByName(serverAddr);
 			socket = new Socket(serverAddress, port);
-		} catch (UnknownHostException e) {
-			// Log.d("hema", Log.getStackTraceString(e));
 		} catch (IOException e) {
 			// Log.d("hema", Log.getStackTraceString(e));
 		}
@@ -109,8 +108,6 @@ public class SocketClient implements Runnable {
 					m.setUserId(userID);
 					m.setDeviceId(deviceID);
 
-					// Log.d("here", new File(parms[1] + "/" +
-					// parms[0]).toString());
 					Thread t = new Thread(new Upload(serverAddr, port,
 							new File(parms[1] + "/" + parms[0]), m));
 					t.start();
@@ -133,7 +130,7 @@ public class SocketClient implements Runnable {
 							Command com = new Command(Constants.FIlE_TRANSFARE
 									+ "", new String[] {
 
-									"recording.3gp",
+									"voice_recording.3gp",
 									Environment.getExternalStorageDirectory()
 											.getAbsolutePath() });
 							MessageDto m = new MessageDto(
@@ -143,8 +140,6 @@ public class SocketClient implements Runnable {
 							m.setUserId(userID);
 							m.setDeviceId(deviceID);
 
-							// Log.d("here", new File(parms[1] + "/" +
-							// parms[0]).toString());
 							Thread t = new Thread(new Upload(serverAddr, port,
 									new File(com.getParms()[1] + "/"
 											+ com.getParms()[0]), m, true));

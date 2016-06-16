@@ -19,4 +19,16 @@ public class CommonUtil {
 		return prefs.getInt("user_id", 0);
 	}
 
+	public static boolean isEmail(String input) {
+		int atIndex = input.indexOf('@');
+
+		if (atIndex == -1)
+			return false;
+
+		int lastDotIndex = input.lastIndexOf('.');
+
+		return atIndex < lastDotIndex && lastDotIndex - atIndex != 1
+				&& lastDotIndex != input.length() - 1 && atIndex != 0;
+	}
+
 }

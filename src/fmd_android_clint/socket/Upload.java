@@ -20,9 +20,6 @@ public class Upload implements Runnable {
 	public Socket socket;
 	public FileInputStream In;
 
-	// / private InputStream is;
-	// private OutputStream os;
-
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
 
@@ -44,16 +41,13 @@ public class Upload implements Runnable {
 	}
 
 	void init(String addr, int port, File filepath, MessageDto m) {
-
 		try {
-			// System.out.println("Upload constract");
 			msg = m;
 			file = filepath;
 			socket = new Socket(InetAddress.getByName(addr), port);
 			In = new FileInputStream(filepath);
 
 		} catch (Exception ex) {
-			System.out.println("Exception [Upload : Upload(...)]");
 		}
 	}
 
@@ -68,52 +62,29 @@ public class Upload implements Runnable {
 				oos.writeObject(JsonHandler.getMessageDtoJson(msg));
 			}
 
-			// final String CLASS_TO_LOAD =
-			// "fmd_desktop_clint.socet.dto.Acknowledgement";
-			// Class loadedClass = null;
-			// try {
-			// loadedClass = Class.forName(CLASS_TO_LOAD);
-			// } catch (ClassNotFoundException e) {
-			// System.out.println("Exception [Upload : init(...)]");
-			// e.printStackTrace();
-			// }
-			// System.out.println("Class " + loadedClass + " found
-			// successfully!");
-
-			System.out.println("before start");
-			System.out.println("start " + start);
-			if (start == 1) {
+			if (start == 1)
 				operation();
-			}
+
 		} catch (Exception e) {
-			System.out.println("Exception [Upload : run()]");
 			e.printStackTrace();
 		}
 	}
 
 	private void operation() {
 		int nFail = 0;
-		int p = 0;// new Integer(0);
-		System.out.println("in upload operation " + file.getAbsolutePath());
+		int p = 0;
 		try {
 
 			byte[] buffer = new byte[1024];
 			int count;
-			// HashMap<Integer, Integer> map = new HashMap<>();
 			while ((count = In.read(buffer)) >= 0) {
-				// System.out.println(count);
-				// oos.writeInt(p);
-				// oos.write(buffer, 0, count);
 				FilePart filePart = new FilePart(buffer, p, count);
 				oos.writeObject(filePart.toJsonString());
 				oos.flush();
 				do {
 					Acknowledgement a = Acknowledgement
 							.toAcknowledgement((String) ois.readObject());
-					// System.out.println(a);
-					// map.put(stat, (map.containsKey(stat) ? map.get(stat) + 1
-					// : 1));
-					// System.out.println("stat " + map);
+
 					if (a.isNagativeAcknowlegment()) {
 						nFail++;
 						oos.writeObject(filePart.toJsonString());
@@ -132,10 +103,8 @@ public class Upload implements Runnable {
 				file.delete();
 
 		} catch (Exception ex) {
-			System.out.println("Exception [Upload : operation()]");
 			ex.printStackTrace();
 		}
-		System.out.println("p " + p + " nfail " + nFail);
 	}
 
 	private void cleanUp() throws IOException {

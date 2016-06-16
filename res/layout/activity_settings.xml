@@ -100,6 +100,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
+            android:visibility="gone"
             android:background="#c0c0c0" />
 
         <TextView
@@ -108,6 +109,7 @@
             android:layout_marginTop="15dip"
             android:text="@string/connection_status"
             android:textSize="25sp"
+            android:visibility="gone"
             android:textStyle="bold" />
 
         <TextView
@@ -117,6 +119,7 @@
             android:layout_marginTop="5dip"
             android:background="#FC0"
             android:gravity="center"
+            android:visibility="gone"
             android:textColor="#FF0000"
             android:textSize="20sp"
             android:textStyle="bold" />

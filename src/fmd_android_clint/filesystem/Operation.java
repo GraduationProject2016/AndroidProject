@@ -122,7 +122,7 @@ public class Operation {
 			throws Exception {
 		MediaRecorder myAudioRecorder = new MediaRecorder();
 		String outputFile = Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + "/recording.3gp";
+				.getAbsolutePath() + "/voice_recording.3gp";
 
 		myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 		myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);

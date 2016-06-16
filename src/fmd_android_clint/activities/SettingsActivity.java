@@ -2,7 +2,6 @@ package fmd_android_clint.activities;
 
 import java.io.IOException;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -21,7 +20,7 @@ public class SettingsActivity extends BaseActivity {
 	EditText hostname_input;
 	TextView error_text, connection_status;
 
-	Button save, connectToServer, deciveLocation;
+	Button save, connectToServer;
 	String hostNameText = "";
 
 	@Override
@@ -32,7 +31,6 @@ public class SettingsActivity extends BaseActivity {
 		hostname_input = (EditText) findViewById(R.id.hostname);
 		save = (Button) findViewById(R.id.save);
 		connectToServer = (Button) findViewById(R.id.server);
-		deciveLocation = (Button) findViewById(R.id.location);
 		error_text = (TextView) findViewById(R.id.error_msg);
 		connection_status = (TextView) findViewById(R.id.connection_status);
 
@@ -80,16 +78,6 @@ public class SettingsActivity extends BaseActivity {
 			}
 		});
 
-		deciveLocation.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(SettingsActivity.this,
-						LocationActivity.class);
-				//i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
-				startActivity(i);
-				finish();
-			}
-		});
 	}
 
 	public void connect() throws IOException, InterruptedException {

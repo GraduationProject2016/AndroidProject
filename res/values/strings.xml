@@ -11,7 +11,7 @@
     <string name="server_connection">Server Connection</string>
     <string name="connection_status">Connection Status</string>
     <string name="connect">Connect To Server</string>
-    <string name="hostname_input">Enter Host Name</string>
+    <string name="hostname_input">Enter Server IP</string>
     <string name="signin_input">Enter Email or Username</string>
     <string name="username">Enter Username</string>
     <string name="name">Enter Name</string>
@@ -28,14 +28,13 @@
     <string name="devise_repassword">Confirm Device Password</string>
     <string name="add_devise">Add This Device</string>
     <string name="back_to_home">Back To Home</string>
-    <string name="logout">Logout</string> 
+    <string name="logout">Logout</string>
     <string name="show_location">Show Device Location</string>
     <string name="location">Your Devices</string>
     <string name="no_devcises">No Devices Found</string>
     <string name="no_locations">No Locations Found</string>
-    <string name="location_loc">Device Loc History</string>  
-    <string name="showlocation"> View Your Devices Locations</string>  
-    
+    <string name="location_loc">Device Loc History</string>
+    <string name="showlocation"> View Your Devices Locations</string>
     <string name="GPSAlertDialogTitle">GPS is setting</string>
     <string name="GPSAlertDialogMessage">GPS is not enabled. Do you want to go to setting menu</string>
     <string name="cancel">Cancel</string>

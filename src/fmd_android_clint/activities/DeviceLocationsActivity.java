@@ -2,7 +2,6 @@ package fmd_android_clint.activities;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import android.app.ActionBar.LayoutParams;

@@ -1,7 +1,5 @@
 package fmd_android_clint.common;
 
-import java.io.IOException;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +13,6 @@ import com.findmydevice.R;
 
 import fmd_android_clint.activities.HomeActivity;
 import fmd_android_clint.activities.SettingsActivity;
-import fmd_android_clint.socket.Connection;
 import fmd_android_clint.socket.SocketClient;
 
 public class BaseActivity extends Activity {
@@ -156,23 +153,5 @@ public class BaseActivity extends Activity {
 				MODE_PRIVATE);
 
 		return prefs.getString("connection_status", "Status : Not Connected");
-	}
-
-	public void doWork() throws IOException, InterruptedException {
-		boolean flag = true;
-		Connection con = new Connection(getLoggedInUserID(), getDeviceID(),
-				getServerIP());
-
-		while (flag) {
-			if (con.isConnected()) {
-				saveConnectionStatus("Status : Connected");
-				flag = false;
-			} else {
-				saveConnectionStatus("Status : Not Connected");
-				flag = con.signIn();
-				Thread.sleep(60000 * 4);
-			}
-
-		}
 	}
 }

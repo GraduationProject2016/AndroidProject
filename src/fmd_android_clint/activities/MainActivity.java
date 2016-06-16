@@ -18,8 +18,6 @@ public class MainActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		if (isLoggedInUser()) {
-			// navigatetoHomeActivity();
-
 			Intent i = new Intent(getApplicationContext(), HomeActivity.class);
 			startActivity(i);
 			this.finish();

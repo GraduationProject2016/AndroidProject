@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,9 +14,9 @@ import android.widget.Toast;
 import com.findmydevice.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import fmd_android_clint.common.BaseActivity;
+import fmd_android_clint.common.CommonUtil;
 
 public class SignInActivity extends BaseActivity {
 
@@ -26,7 +25,6 @@ public class SignInActivity extends BaseActivity {
 
 	Button signInBtn, signUpBtn;
 	String userLoginInput = "", userLoginPassword = "";
-	public static Location loc;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +36,6 @@ public class SignInActivity extends BaseActivity {
 		signInBtn = (Button) findViewById(R.id.signinbtn);
 		signUpBtn = (Button) findViewById(R.id.signupbtn);
 		signin_error_text = (TextView) findViewById(R.id.login_error);
-
-		// signin_error_text.setVisibility(View.VISIBLE);
-		// signin_error_text.setText(SocketClient.userID);
 
 		signUpBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -64,15 +59,7 @@ public class SignInActivity extends BaseActivity {
 				}
 				signin_error_text.setText("");
 
-				boolean is_email = isEmail(userLoginInput);
-
-				RequestParams params = new RequestParams();
-				if (is_email)
-					params.put("email", userLoginInput);
-				else
-					params.put("username", userLoginInput);
-
-				params.put("password", userLoginPassword);
+				boolean is_email = CommonUtil.isEmail(userLoginInput);
 
 				loginWithWebService(is_email);
 			}
@@ -80,22 +67,9 @@ public class SignInActivity extends BaseActivity {
 
 	}
 
-	private boolean isEmail(String input) {
-		int atIndex = input.indexOf('@');
-
-		if (atIndex == -1)
-			return false;
-
-		int lastDotIndex = input.lastIndexOf('.');
-
-		return atIndex < lastDotIndex && lastDotIndex - atIndex != 1
-				&& lastDotIndex != input.length() - 1 && atIndex != 0;
-	}
-
 	/**
-	 * Method that performs RESTful webservice invocations
-	 * 
-	 * @param params
+	 * @description loginWithWebService invoke login service
+	 * @param is_email
 	 */
 	public void loginWithWebService(boolean is_email) {
 		String login_by = "";

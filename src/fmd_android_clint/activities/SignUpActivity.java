@@ -77,11 +77,6 @@ public class SignUpActivity extends BaseActivity {
 
 	}
 
-	/**
-	 * Method that performs RESTful webservice invocations
-	 * 
-	 * @param params
-	 */
 	public void signupWithWebService() {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://" + getServerIP()

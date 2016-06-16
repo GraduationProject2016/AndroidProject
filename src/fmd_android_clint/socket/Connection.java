@@ -1,5 +1,6 @@
 package fmd_android_clint.socket;
 
+import android.util.Log;
 import fmd_android_clint.common.JsonHandler;
 import fmd_android_clint.socket.dto.MessageDto;
 
@@ -21,7 +22,7 @@ public class Connection {
 			clientThread.start();
 			signIn();
 		} catch (Exception ex) {
-			// Log.d("myappppp", Log.getStackTraceString(ex));
+			Log.d("my appppp", Log.getStackTraceString(ex));
 		}
 	}
 
@@ -41,7 +42,6 @@ public class Connection {
 			msg.setContent("sign_in");
 			client.send(JsonHandler.getMessageDtoJson(msg));
 		} catch (Exception ex) {
-			// Log.d("myapp", Log.getStackTraceString(ex));
 			return false;
 		}
 		return true;

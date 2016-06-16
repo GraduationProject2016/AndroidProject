@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -14,14 +15,13 @@ import fmd_android_clint.location.MyLocation.LocationResult;
 
 public class LocationUtil {
 
-	public String fieldLatitude;
-	public String fieldLongitude;
+	public String fieldLatitude = "30.030474";
+	public String fieldLongitude = "31.209637";
 	public int deviceID;
 	public String ServerIP;
 	public static Location loc;
 
 	public LocationUtil() {
-
 		SharedPreferences prefs = MyApplication.getContext()
 				.getSharedPreferences("MyPrefsFile", 0);
 		deviceID = prefs.getInt("device_id", 0);
@@ -37,12 +37,15 @@ public class LocationUtil {
 					@Override
 					public String gotLocation(final Location location) {
 						if (location == null)
-							return "30.030474 :: 31.209637";
+							return fieldLatitude + "::" + fieldLongitude;
 
 						loc = location;
 						fieldLatitude = String.valueOf(loc.getLatitude());
 						fieldLongitude = String.valueOf(loc.getLongitude());
-						Log.d("test", fieldLatitude + " :: " + fieldLongitude);
+
+						Log.d("location test", fieldLatitude + " :: "
+								+ fieldLongitude);
+
 						return fieldLatitude + "::" + fieldLongitude;
 					}
 				};
@@ -64,10 +67,8 @@ public class LocationUtil {
 	}
 
 	public void getDeviceLocation() {
-		if (fieldLatitude == null) {
-			fieldLatitude = "30.030474";
-			fieldLongitude = "31.209637";
-		}
+
+		Log.d("ws location test", fieldLatitude + " :: " + fieldLongitude);
 
 		if (fieldLatitude != null && fieldLongitude != null) {
 
@@ -77,29 +78,27 @@ public class LocationUtil {
 					null, new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(String response) {
-							// Toast.makeText(getApplicationContext(),
-							// "Requested resource not found",
-							// Toast.LENGTH_LONG).show();
+							Toast.makeText(MyApplication.getContext(),
+									"Requested resource not found",
+									Toast.LENGTH_LONG).show();
 						}
 
 						@Override
 						public void onFailure(int statusCode, Throwable error,
 								String content) {
 							if (statusCode == 404) {
-								// Toast.makeText(getApplicationContext(),
-								// "Requested resource not found",
-								// Toast.LENGTH_LONG).show();
+								Toast.makeText(MyApplication.getContext(),
+										"Requested resource not found",
+										Toast.LENGTH_LONG).show();
 							} else if (statusCode == 500) {
-								// Toast.makeText(getApplicationContext(),
-								// "Something went wrong at server",
-								// Toast.LENGTH_LONG).show();
-							}
-							// When Http response code other than 404, 500
-							else {
-								// Toast.makeText(
-								// getApplicationContext(),
-								// "[Device might not be connected to Internet or remote server is not up and running]",
-								// Toast.LENGTH_LONG).show();
+								Toast.makeText(MyApplication.getContext(),
+										"Something went wrong at server",
+										Toast.LENGTH_LONG).show();
+							} else {
+								Toast.makeText(
+										MyApplication.getContext(),
+										"[Device might not be connected to Internet or remote server is not up and running]",
+										Toast.LENGTH_LONG).show();
 							}
 						}
 					});

@@ -1,8 +1,5 @@
 package fmd_android_clint.activities;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,9 +18,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import fmd_android_clint.common.BackgroundService;
 import fmd_android_clint.common.BaseActivity;
-import fmd_android_clint.common.FromJasonToArrayList;
 import fmd_android_clint.location.LocationUtil;
-import fmd_android_clint.socket.entity.Device;
 
 public class HomeActivity extends BaseActivity {
 
@@ -103,11 +98,6 @@ public class HomeActivity extends BaseActivity {
 		}
 	}
 
-	/**
-	 * Method that performs RESTful webservice invocations
-	 * 
-	 * @param params
-	 */
 	public void checkDeviceWebService() {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://" + getServerIP()
